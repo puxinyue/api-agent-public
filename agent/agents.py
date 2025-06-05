@@ -301,7 +301,7 @@ team = Team([api_acquisition_agent, testcase_generator_agent, testcase_format_ag
                            termination_condition=source_termination)
 
 # 在生成测试用例的同时，将 Swagger JSON 文件转换为 YAML 格式
-async def convert_testcase_to_yaml(testcase_data, path, method):
+async def convert_testcase_to_yaml(testcase_data, path, method, group_index=None):
     # 解析测试用例代码
     test_cases = []
     code = testcase_data["code"]
@@ -408,7 +408,13 @@ async def convert_testcase_to_yaml(testcase_data, path, method):
     # 保存YAML文件
     swagger_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'swagger')
     os.makedirs(swagger_dir, exist_ok=True)
-    yaml_path = os.path.join(swagger_dir, f'testcase_{path.strip("/").replace("/", "_")}_{method}.yaml')
+    
+    # 根据是否有分组来生成文件名
+    if group_index is not None:
+        yaml_path = os.path.join(swagger_dir, f'testcase_{path.strip("/").replace("/", "_")}_{method}_group{group_index+1}.yaml')
+    else:
+        yaml_path = os.path.join(swagger_dir, f'testcase_{path.strip("/").replace("/", "_")}_{method}.yaml')
+    
     with open(yaml_path, 'w', encoding='utf-8') as f:
         f.write(yaml_data)
 
@@ -561,21 +567,21 @@ def invalid_token():
                     try:
                         print(f"Generating test cases for {path} {method} group {i+1}...")
                         code = await generate_testcase_with_retry(prompt)
-
+                        
                         # 保存测试用例
                         test_file = f"test_{path.strip('/').replace('/', '_')}_{method}_group{i+1}.py"
                         await save_script_to_file(test_file, code)
                         print(f"Successfully generated test cases for {path} {method} group {i+1}")
-
-                        # 生成YAML
+                        
+                        # 生成YAML，传入分组索引
                         testcase_data = {
                             "api_doc": group_api_doc,
                             "test_name": f"test_{path.strip('/').replace('/', '_')}_{method}_group{i+1}",
                             "description": f"Test case for {method.upper()} {path} (Group {i+1})",
                             "code": code
                         }
-                        await convert_testcase_to_yaml(testcase_data, path, method)
-
+                        await convert_testcase_to_yaml(testcase_data, path, method, group_index=i)
+                        
                         # 在每组之间添加延迟
                         await asyncio.sleep(5)
                     except Exception as e:
@@ -608,7 +614,7 @@ def invalid_token():
                     await save_script_to_file(f"test_{path.strip('/').replace('/', '_')}_{method}.py", code)
                     print(f"Successfully generated test cases for {path} {method}")
 
-                    # 生成测试用例的 YAML 文件
+                    # 生成测试用例的 YAML 文件，不传入分组索引
                     testcase_data = {
                         "api_doc": single_api_doc,
                         "test_name": f"test_{path.strip('/').replace('/', '_')}_{method}",
