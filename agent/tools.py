@@ -29,5 +29,5 @@ async def save_script_to_file(filename: str, code: str):
 
 async def load_api_doc():
     """加载API描述文档"""
-    res = requests.get("http://localhost:8000/openapi.json")
+    res = requests.get("http://127.0.0.1:5500/openapi.json")
     return res.json()

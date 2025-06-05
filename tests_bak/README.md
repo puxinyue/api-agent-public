@@ -29,7 +29,8 @@ allure serve ./allure-results
 - python -m agent.agents
 - pytest tests --alluredir=allure-results
 - allure serve allure-results
-- 退出虚拟环境
+- 退出虚拟环境 deactivate
+- source venv/bin/activate
 
 ## 测试覆盖
 

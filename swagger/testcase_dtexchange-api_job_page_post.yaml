@@ -1,0 +1,128 @@
+- name: test_data_exchange_job_query_normal
+  request:
+    url: $url/dtexchange-api/job/page
+    method: POST
+    headers:
+      User-Agent: PostmanRuntime/7.37.3
+      Authorization: Bearer $valid_token
+    json:
+      current: 1
+      size: 10
+      archFullPath: root
+- name: test_data_exchange_job_query_missing_current
+  request:
+    url: $url/dtexchange-api/job/page
+    method: POST
+    headers:
+      User-Agent: PostmanRuntime/7.37.3
+      Authorization: Bearer $valid_token
+    json:
+      size: 10
+      archFullPath: root
+- name: test_data_exchange_job_query_empty_current
+  request:
+    url: $url/dtexchange-api/job/page
+    method: POST
+    headers:
+      User-Agent: PostmanRuntime/7.37.3
+      Authorization: Bearer $valid_token
+    json:
+      current: ''
+      size: 10
+      archFullPath: root
+- name: test_data_exchange_job_query_invalid_type_current
+  request:
+    url: $url/dtexchange-api/job/page
+    method: POST
+    headers:
+      User-Agent: PostmanRuntime/7.37.3
+      Authorization: Bearer $valid_token
+    json:
+      current: one
+      size: 10
+      archFullPath: root
+- name: test_data_exchange_job_query_missing_size
+  request:
+    url: $url/dtexchange-api/job/page
+    method: POST
+    headers:
+      User-Agent: PostmanRuntime/7.37.3
+      Authorization: Bearer $valid_token
+    json:
+      current: 1
+      archFullPath: root
+- name: test_data_exchange_job_query_empty_size
+  request:
+    url: $url/dtexchange-api/job/page
+    method: POST
+    headers:
+      User-Agent: PostmanRuntime/7.37.3
+      Authorization: Bearer $valid_token
+    json:
+      current: 1
+      size: ''
+      archFullPath: root
+- name: test_data_exchange_job_query_invalid_type_size
+  request:
+    url: $url/dtexchange-api/job/page
+    method: POST
+    headers:
+      User-Agent: PostmanRuntime/7.37.3
+      Authorization: Bearer $valid_token
+    json:
+      current: 1
+      size: ten
+      archFullPath: root
+- name: test_data_exchange_job_query_missing_archfullpath
+  request:
+    url: $url/dtexchange-api/job/page
+    method: POST
+    headers:
+      User-Agent: PostmanRuntime/7.37.3
+      Authorization: Bearer $valid_token
+    json:
+      current: 1
+      size: 10
+- name: test_data_exchange_job_query_empty_archfullpath
+  request:
+    url: $url/dtexchange-api/job/page
+    method: POST
+    headers:
+      User-Agent: PostmanRuntime/7.37.3
+      Authorization: Bearer $valid_token
+    json:
+      current: 1
+      size: 10
+      archFullPath: ''
+- name: test_data_exchange_job_query_invalid_auth_header
+  request:
+    url: $url/dtexchange-api/job/page
+    method: POST
+    headers:
+      User-Agent: PostmanRuntime/7.37.3
+    json:
+      current: 1
+      size: 10
+      archFullPath: root
+- name: test_data_exchange_job_query_invalid_cookie_header
+  request:
+    url: $url/dtexchange-api/job/page
+    method: POST
+    headers:
+      User-Agent: PostmanRuntime/7.37.3
+      Authorization: Bearer $valid_token
+    json:
+      current: 1
+      size: 10
+      archFullPath: root
+- name: test_data_exchange_job_query_invalid_xrequestedwith_header
+  request:
+    url: $url/dtexchange-api/job/page
+    method: POST
+    headers:
+      User-Agent: PostmanRuntime/7.37.3
+      Authorization: Bearer $valid_token
+    json:
+      current: 1
+      size: 10
+      archFullPath: root
