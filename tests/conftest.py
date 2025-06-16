@@ -1,6 +1,6 @@
 import pytest
 
-BASE_URL = "http://your-api-url"  # 替换为实际API地址
+BASE_URL = "http://localhost:8000"  # 替换为实际API地址
 
 @pytest.fixture(scope="session")
 def valid_token():

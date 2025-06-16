@@ -1,0 +1,3350 @@
+- name: "测试保存或更新作业接口，使用所有必填字段的有效值和有效的Authorization token。"
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer ${valid_token}"
+    json:
+      jobCode: 1539950205994752
+      archFullPath: "root"
+      jobName: "wzs_mysql_hive_all"
+      jobNameEn: "wzs_mysql_hive_all"
+      remark: "wzs_mysql_hive_all"
+      supportResume: false
+      sourceDsType:
+        label: "MySQL"
+        value: "MySQL"
+      targetDsType:
+        label: "Hive"
+        value: "Hive"
+      dirtyDataOutputConfig:
+        isStorage: false
+        storagePath: ""
+      streamingMediaDTO:
+        isFrameExtracting: false
+      datasourceList:
+      - datasourceType:
+          value: "source"
+          label: "source"
+        dsTableName: "wzs_test_userinfo1"
+        dsName: "autotest_mysql"
+        dsType:
+          label: "MySQL"
+          value: "MySQL"
+        metaTabId: "wzs_test_userinfo1"
+        databaseName: "starlink_pro"
+        dsConfig:
+          codeType:
+            value: "UTF-8"
+          dsConfigWayEnum:
+            value: "single_database_single_table"
+          partitionNum: 1
+          fetchSize: 1000
+          dataPluginType: "MySQL"
+          writeMode: "append"
+          compressCodec: "none"
+      - datasourceType:
+          value: "target"
+          label: "target"
+        dsTableName: "wzs_test_userinfo2"
+        dsName: "autotest_hive"
+        dsType:
+          label: "Hive"
+          value: "Hive"
+        metaTabId: "MD_PT_e3a6dadcd671457e9ff51ea0267833bb"
+        databaseName: "another_db"
+        dsConfig:
+          writeMode: "append"
+          compressCodec: "none"
+          dataPluginType: "Hive"
+          partitionNum: 1
+      mapperList:
+      - id: 21
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "id"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 1
+        customerFiled: false
+        targetModelFieldId: "MD_PTFa451748916034470bd935d0094408574"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "id"
+        targetFieldType: "int"
+        primaryKey: true
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "id"
+      - id: 22
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "name"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "varchar"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 2
+        customerFiled: false
+        targetModelFieldId: "MD_PTF3582a165fb764c9db06289f1dc6e274d"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "name"
+        targetFieldType: "varchar"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "name"
+      - id: 23
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "age"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 3
+        customerFiled: false
+        targetModelFieldId: "MD_PTFd8fa7393308b469c8f2f906d562f2629"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "age"
+        targetFieldType: "int"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "age"
+      filterRuleList: []
+      jobSyncType:
+        label: "^增^量^同^步"
+        value: "1"
+      jobExecMode:
+        label: "^批^采^集"
+        value: "batch"
+      resourceAllocation:
+        dsName: "default_yarn"
+        prodQueue: "root.default"
+        testQueue: "root.default"
+        cores: null
+        jobManagerMemory: null
+        taskManagerMemory: null
+        parallelism: null
+        taskManagerNumber: 1
+        dsLabel: "default_yarn"
+      jobAttrList:
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "yarn.application.queue"
+        jobAttrValue: '{"dsName":"default_yarn","dsLabel":"default_yarn","testQueue":"root.default","prodQueue":"root.default"}'
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "taskmanager.numberOfTaskSlots"
+        jobAttrValue: "1"
+      - jobAttrType:
+          value: 1
+          label: "^作^业^变^量"
+        jobAttrKey: "some_key"
+        jobAttrValue: "some_value"
+      enableBillingCheck: 0
+
+- name: "测试保存或更新作业接口，缺失Authorization header。"
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+    json:
+      jobCode: 1539950205994752
+      archFullPath: "root"
+      jobName: "wzs_mysql_hive_all"
+      jobNameEn: "wzs_mysql_hive_all"
+      remark: "wzs_mysql_hive_all"
+      supportResume: false
+      sourceDsType:
+        label: "MySQL"
+        value: "MySQL"
+      targetDsType:
+        label: "Hive"
+        value: "Hive"
+      dirtyDataOutputConfig:
+        isStorage: false
+        storagePath: ""
+      streamingMediaDTO:
+        isFrameExtracting: false
+      datasourceList:
+      - datasourceType:
+          value: "source"
+          label: "source"
+        dsTableName: "wzs_test_userinfo1"
+        dsName: "autotest_mysql"
+        dsType:
+          label: "MySQL"
+          value: "MySQL"
+        metaTabId: "wzs_test_userinfo1"
+        databaseName: "starlink_pro"
+        dsConfig:
+          codeType:
+            value: "UTF-8"
+          dsConfigWayEnum:
+            value: "single_database_single_table"
+          partitionNum: 1
+          fetchSize: 1000
+          dataPluginType: "MySQL"
+          writeMode: "append"
+          compressCodec: "none"
+      - datasourceType:
+          value: "target"
+          label: "target"
+        dsTableName: "wzs_test_userinfo2"
+        dsName: "autotest_hive"
+        dsType:
+          label: "Hive"
+          value: "Hive"
+        metaTabId: "MD_PT_e3a6dadcd671457e9ff51ea0267833bb"
+        databaseName: "another_db"
+        dsConfig:
+          writeMode: "append"
+          compressCodec: "none"
+          dataPluginType: "Hive"
+          partitionNum: 1
+      mapperList:
+      - id: 21
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "id"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 1
+        customerFiled: false
+        targetModelFieldId: "MD_PTFa451748916034470bd935d0094408574"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "id"
+        targetFieldType: "int"
+        primaryKey: true
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "id"
+      - id: 22
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "name"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "varchar"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 2
+        customerFiled: false
+        targetModelFieldId: "MD_PTF3582a165fb764c9db06289f1dc6e274d"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "name"
+        targetFieldType: "varchar"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "name"
+      - id: 23
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "age"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 3
+        customerFiled: false
+        targetModelFieldId: "MD_PTFd8fa7393308b469c8f2f906d562f2629"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "age"
+        targetFieldType: "int"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "age"
+      filterRuleList: []
+      jobSyncType:
+        label: "^增^量^同^步"
+        value: "1"
+      jobExecMode:
+        label: "^批^采^集"
+        value: "batch"
+      resourceAllocation:
+        dsName: "default_yarn"
+        prodQueue: "root.default"
+        testQueue: "root.default"
+        cores: null
+        jobManagerMemory: null
+        taskManagerMemory: null
+        parallelism: null
+        taskManagerNumber: 1
+        dsLabel: "default_yarn"
+      jobAttrList:
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "yarn.application.queue"
+        jobAttrValue: '{"dsName":"default_yarn","dsLabel":"default_yarn","testQueue":"root.default","prodQueue":"root.default"}'
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "taskmanager.numberOfTaskSlots"
+        jobAttrValue: "1"
+      - jobAttrType:
+          value: 1
+          label: "^作^业^变^量"
+        jobAttrKey: "some_key"
+        jobAttrValue: "some_value"
+      enableBillingCheck: 0
+
+- name: "测试保存或更新作业接口，使用无效的Authorization token。"
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer ${invalid_token}"
+    json:
+      jobCode: 1539950205994752
+      archFullPath: "root"
+      jobName: "wzs_mysql_hive_all"
+      jobNameEn: "wzs_mysql_hive_all"
+      remark: "wzs_mysql_hive_all"
+      supportResume: false
+      sourceDsType:
+        label: "MySQL"
+        value: "MySQL"
+      targetDsType:
+        label: "Hive"
+        value: "Hive"
+      dirtyDataOutputConfig:
+        isStorage: false
+        storagePath: ""
+      streamingMediaDTO:
+        isFrameExtracting: false
+      datasourceList:
+      - datasourceType:
+          value: "source"
+          label: "source"
+        dsTableName: "wzs_test_userinfo1"
+        dsName: "autotest_mysql"
+        dsType:
+          label: "MySQL"
+          value: "MySQL"
+        metaTabId: "wzs_test_userinfo1"
+        databaseName: "starlink_pro"
+        dsConfig:
+          codeType:
+            value: "UTF-8"
+          dsConfigWayEnum:
+            value: "single_database_single_table"
+          partitionNum: 1
+          fetchSize: 1000
+          dataPluginType: "MySQL"
+          writeMode: "append"
+          compressCodec: "none"
+      - datasourceType:
+          value: "target"
+          label: "target"
+        dsTableName: "wzs_test_userinfo2"
+        dsName: "autotest_hive"
+        dsType:
+          label: "Hive"
+          value: "Hive"
+        metaTabId: "MD_PT_e3a6dadcd671457e9ff51ea0267833bb"
+        databaseName: "another_db"
+        dsConfig:
+          writeMode: "append"
+          compressCodec: "none"
+          dataPluginType: "Hive"
+          partitionNum: 1
+      mapperList:
+      - id: 21
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "id"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 1
+        customerFiled: false
+        targetModelFieldId: "MD_PTFa451748916034470bd935d0094408574"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "id"
+        targetFieldType: "int"
+        primaryKey: true
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "id"
+      - id: 22
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "name"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "varchar"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 2
+        customerFiled: false
+        targetModelFieldId: "MD_PTF3582a165fb764c9db06289f1dc6e274d"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "name"
+        targetFieldType: "varchar"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "name"
+      - id: 23
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "age"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 3
+        customerFiled: false
+        targetModelFieldId: "MD_PTFd8fa7393308b469c8f2f906d562f2629"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "age"
+        targetFieldType: "int"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "age"
+      filterRuleList: []
+      jobSyncType:
+        label: "^增^量^同^步"
+        value: "1"
+      jobExecMode:
+        label: "^批^采^集"
+        value: "batch"
+      resourceAllocation:
+        dsName: "default_yarn"
+        prodQueue: "root.default"
+        testQueue: "root.default"
+        cores: null
+        jobManagerMemory: null
+        taskManagerMemory: null
+        parallelism: null
+        taskManagerNumber: 1
+        dsLabel: "default_yarn"
+      jobAttrList:
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "yarn.application.queue"
+        jobAttrValue: '{"dsName":"default_yarn","dsLabel":"default_yarn","testQueue":"root.default","prodQueue":"root.default"}'
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "taskmanager.numberOfTaskSlots"
+        jobAttrValue: "1"
+      - jobAttrType:
+          value: 1
+          label: "^作^业^变^量"
+        jobAttrKey: "some_key"
+        jobAttrValue: "some_value"
+      enableBillingCheck: 0
+
+- name: "测试保存或更新作业接口，缺失顶层必填字段: jobCode"
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer ${valid_token}"
+    json:
+      archFullPath: "root"
+      jobName: "wzs_mysql_hive_all"
+      jobNameEn: "wzs_mysql_hive_all"
+      remark: "wzs_mysql_hive_all"
+      supportResume: false
+      sourceDsType:
+        label: "MySQL"
+        value: "MySQL"
+      targetDsType:
+        label: "Hive"
+        value: "Hive"
+      dirtyDataOutputConfig:
+        isStorage: false
+        storagePath: ""
+      streamingMediaDTO:
+        isFrameExtracting: false
+      datasourceList:
+      - datasourceType:
+          value: "source"
+          label: "source"
+        dsTableName: "wzs_test_userinfo1"
+        dsName: "autotest_mysql"
+        dsType:
+          label: "MySQL"
+          value: "MySQL"
+        metaTabId: "wzs_test_userinfo1"
+        databaseName: "starlink_pro"
+        dsConfig:
+          codeType:
+            value: "UTF-8"
+          dsConfigWayEnum:
+            value: "single_database_single_table"
+          partitionNum: 1
+          fetchSize: 1000
+          dataPluginType: "MySQL"
+          writeMode: "append"
+          compressCodec: "none"
+      - datasourceType:
+          value: "target"
+          label: "target"
+        dsTableName: "wzs_test_userinfo2"
+        dsName: "autotest_hive"
+        dsType:
+          label: "Hive"
+          value: "Hive"
+        metaTabId: "MD_PT_e3a6dadcd671457e9ff51ea0267833bb"
+        databaseName: "another_db"
+        dsConfig:
+          writeMode: "append"
+          compressCodec: "none"
+          dataPluginType: "Hive"
+          partitionNum: 1
+      mapperList:
+      - id: 21
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "id"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 1
+        customerFiled: false
+        targetModelFieldId: "MD_PTFa451748916034470bd935d0094408574"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "id"
+        targetFieldType: "int"
+        primaryKey: true
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "id"
+      - id: 22
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "name"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "varchar"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 2
+        customerFiled: false
+        targetModelFieldId: "MD_PTF3582a165fb764c9db06289f1dc6e274d"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "name"
+        targetFieldType: "varchar"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "name"
+      - id: 23
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "age"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 3
+        customerFiled: false
+        targetModelFieldId: "MD_PTFd8fa7393308b469c8f2f906d562f2629"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "age"
+        targetFieldType: "int"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "age"
+      filterRuleList: []
+      jobSyncType:
+        label: "^增^量^同^步"
+        value: "1"
+      jobExecMode:
+        label: "^批^采^集"
+        value: "batch"
+      resourceAllocation:
+        dsName: "default_yarn"
+        prodQueue: "root.default"
+        testQueue: "root.default"
+        cores: null
+        jobManagerMemory: null
+        taskManagerMemory: null
+        parallelism: null
+        taskManagerNumber: 1
+        dsLabel: "default_yarn"
+      jobAttrList:
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "yarn.application.queue"
+        jobAttrValue: '{"dsName":"default_yarn","dsLabel":"default_yarn","testQueue":"root.default","prodQueue":"root.default"}'
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "taskmanager.numberOfTaskSlots"
+        jobAttrValue: "1"
+      - jobAttrType:
+          value: 1
+          label: "^作^业^变^量"
+        jobAttrKey: "some_key"
+        jobAttrValue: "some_value"
+      enableBillingCheck: 0
+
+- name: "测试保存或更新作业接口，缺失顶层必填字段: archFullPath"
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer ${valid_token}"
+    json:
+      jobCode: 1539950205994752
+      jobName: "wzs_mysql_hive_all"
+      jobNameEn: "wzs_mysql_hive_all"
+      remark: "wzs_mysql_hive_all"
+      supportResume: false
+      sourceDsType:
+        label: "MySQL"
+        value: "MySQL"
+      targetDsType:
+        label: "Hive"
+        value: "Hive"
+      dirtyDataOutputConfig:
+        isStorage: false
+        storagePath: ""
+      streamingMediaDTO:
+        isFrameExtracting: false
+      datasourceList:
+      - datasourceType:
+          value: "source"
+          label: "source"
+        dsTableName: "wzs_test_userinfo1"
+        dsName: "autotest_mysql"
+        dsType:
+          label: "MySQL"
+          value: "MySQL"
+        metaTabId: "wzs_test_userinfo1"
+        databaseName: "starlink_pro"
+        dsConfig:
+          codeType:
+            value: "UTF-8"
+          dsConfigWayEnum:
+            value: "single_database_single_table"
+          partitionNum: 1
+          fetchSize: 1000
+          dataPluginType: "MySQL"
+          writeMode: "append"
+          compressCodec: "none"
+      - datasourceType:
+          value: "target"
+          label: "target"
+        dsTableName: "wzs_test_userinfo2"
+        dsName: "autotest_hive"
+        dsType:
+          label: "Hive"
+          value: "Hive"
+        metaTabId: "MD_PT_e3a6dadcd671457e9ff51ea0267833bb"
+        databaseName: "another_db"
+        dsConfig:
+          writeMode: "append"
+          compressCodec: "none"
+          dataPluginType: "Hive"
+          partitionNum: 1
+      mapperList:
+      - id: 21
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "id"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 1
+        customerFiled: false
+        targetModelFieldId: "MD_PTFa451748916034470bd935d0094408574"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "id"
+        targetFieldType: "int"
+        primaryKey: true
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "id"
+      - id: 22
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "name"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "varchar"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 2
+        customerFiled: false
+        targetModelFieldId: "MD_PTF3582a165fb764c9db06289f1dc6e274d"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "name"
+        targetFieldType: "varchar"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "name"
+      - id: 23
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "age"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 3
+        customerFiled: false
+        targetModelFieldId: "MD_PTFd8fa7393308b469c8f2f906d562f2629"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "age"
+        targetFieldType: "int"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "age"
+      filterRuleList: []
+      jobSyncType:
+        label: "^增^量^同^步"
+        value: "1"
+      jobExecMode:
+        label: "^批^采^集"
+        value: "batch"
+      resourceAllocation:
+        dsName: "default_yarn"
+        prodQueue: "root.default"
+        testQueue: "root.default"
+        cores: null
+        jobManagerMemory: null
+        taskManagerMemory: null
+        parallelism: null
+        taskManagerNumber: 1
+        dsLabel: "default_yarn"
+      jobAttrList:
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "yarn.application.queue"
+        jobAttrValue: '{"dsName":"default_yarn","dsLabel":"default_yarn","testQueue":"root.default","prodQueue":"root.default"}'
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "taskmanager.numberOfTaskSlots"
+        jobAttrValue: "1"
+      - jobAttrType:
+          value: 1
+          label: "^作^业^变^量"
+        jobAttrKey: "some_key"
+        jobAttrValue: "some_value"
+      enableBillingCheck: 0
+
+- name: "测试保存或更新作业接口，缺失顶层必填字段: jobName"
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer ${valid_token}"
+    json:
+      jobCode: 1539950205994752
+      archFullPath: "root"
+      jobNameEn: "wzs_mysql_hive_all"
+      remark: "wzs_mysql_hive_all"
+      supportResume: false
+      sourceDsType:
+        label: "MySQL"
+        value: "MySQL"
+      targetDsType:
+        label: "Hive"
+        value: "Hive"
+      dirtyDataOutputConfig:
+        isStorage: false
+        storagePath: ""
+      streamingMediaDTO:
+        isFrameExtracting: false
+      datasourceList:
+      - datasourceType:
+          value: "source"
+          label: "source"
+        dsTableName: "wzs_test_userinfo1"
+        dsName: "autotest_mysql"
+        dsType:
+          label: "MySQL"
+          value: "MySQL"
+        metaTabId: "wzs_test_userinfo1"
+        databaseName: "starlink_pro"
+        dsConfig:
+          codeType:
+            value: "UTF-8"
+          dsConfigWayEnum:
+            value: "single_database_single_table"
+          partitionNum: 1
+          fetchSize: 1000
+          dataPluginType: "MySQL"
+          writeMode: "append"
+          compressCodec: "none"
+      - datasourceType:
+          value: "target"
+          label: "target"
+        dsTableName: "wzs_test_userinfo2"
+        dsName: "autotest_hive"
+        dsType:
+          label: "Hive"
+          value: "Hive"
+        metaTabId: "MD_PT_e3a6dadcd671457e9ff51ea0267833bb"
+        databaseName: "another_db"
+        dsConfig:
+          writeMode: "append"
+          compressCodec: "none"
+          dataPluginType: "Hive"
+          partitionNum: 1
+      mapperList:
+      - id: 21
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "id"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 1
+        customerFiled: false
+        targetModelFieldId: "MD_PTFa451748916034470bd935d0094408574"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "id"
+        targetFieldType: "int"
+        primaryKey: true
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "id"
+      - id: 22
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "name"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "varchar"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 2
+        customerFiled: false
+        targetModelFieldId: "MD_PTF3582a165fb764c9db06289f1dc6e274d"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "name"
+        targetFieldType: "varchar"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "name"
+      - id: 23
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "age"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 3
+        customerFiled: false
+        targetModelFieldId: "MD_PTFd8fa7393308b469c8f2f906d562f2629"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "age"
+        targetFieldType: "int"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "age"
+      filterRuleList: []
+      jobSyncType:
+        label: "^增^量^同^步"
+        value: "1"
+      jobExecMode:
+        label: "^批^采^集"
+        value: "batch"
+      resourceAllocation:
+        dsName: "default_yarn"
+        prodQueue: "root.default"
+        testQueue: "root.default"
+        cores: null
+        jobManagerMemory: null
+        taskManagerMemory: null
+        parallelism: null
+        taskManagerNumber: 1
+        dsLabel: "default_yarn"
+      jobAttrList:
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "yarn.application.queue"
+        jobAttrValue: '{"dsName":"default_yarn","dsLabel":"default_yarn","testQueue":"root.default","prodQueue":"root.default"}'
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "taskmanager.numberOfTaskSlots"
+        jobAttrValue: "1"
+      - jobAttrType:
+          value: 1
+          label: "^作^业^变^量"
+        jobAttrKey: "some_key"
+        jobAttrValue: "some_value"
+      enableBillingCheck: 0
+
+- name: "测试保存或更新作业接口，缺失顶层必填字段: jobNameEn"
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer ${valid_token}"
+    json:
+      jobCode: 1539950205994752
+      archFullPath: "root"
+      jobName: "wzs_mysql_hive_all"
+      remark: "wzs_mysql_hive_all"
+      supportResume: false
+      sourceDsType:
+        label: "MySQL"
+        value: "MySQL"
+      targetDsType:
+        label: "Hive"
+        value: "Hive"
+      dirtyDataOutputConfig:
+        isStorage: false
+        storagePath: ""
+      streamingMediaDTO:
+        isFrameExtracting: false
+      datasourceList:
+      - datasourceType:
+          value: "source"
+          label: "source"
+        dsTableName: "wzs_test_userinfo1"
+        dsName: "autotest_mysql"
+        dsType:
+          label: "MySQL"
+          value: "MySQL"
+        metaTabId: "wzs_test_userinfo1"
+        databaseName: "starlink_pro"
+        dsConfig:
+          codeType:
+            value: "UTF-8"
+          dsConfigWayEnum:
+            value: "single_database_single_table"
+          partitionNum: 1
+          fetchSize: 1000
+          dataPluginType: "MySQL"
+          writeMode: "append"
+          compressCodec: "none"
+      - datasourceType:
+          value: "target"
+          label: "target"
+        dsTableName: "wzs_test_userinfo2"
+        dsName: "autotest_hive"
+        dsType:
+          label: "Hive"
+          value: "Hive"
+        metaTabId: "MD_PT_e3a6dadcd671457e9ff51ea0267833bb"
+        databaseName: "another_db"
+        dsConfig:
+          writeMode: "append"
+          compressCodec: "none"
+          dataPluginType: "Hive"
+          partitionNum: 1
+      mapperList:
+      - id: 21
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "id"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 1
+        customerFiled: false
+        targetModelFieldId: "MD_PTFa451748916034470bd935d0094408574"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "id"
+        targetFieldType: "int"
+        primaryKey: true
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "id"
+      - id: 22
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "name"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "varchar"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 2
+        customerFiled: false
+        targetModelFieldId: "MD_PTF3582a165fb764c9db06289f1dc6e274d"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "name"
+        targetFieldType: "varchar"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "name"
+      - id: 23
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "age"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 3
+        customerFiled: false
+        targetModelFieldId: "MD_PTFd8fa7393308b469c8f2f906d562f2629"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "age"
+        targetFieldType: "int"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "age"
+      filterRuleList: []
+      jobSyncType:
+        label: "^增^量^同^步"
+        value: "1"
+      jobExecMode:
+        label: "^批^采^集"
+        value: "batch"
+      resourceAllocation:
+        dsName: "default_yarn"
+        prodQueue: "root.default"
+        testQueue: "root.default"
+        cores: null
+        jobManagerMemory: null
+        taskManagerMemory: null
+        parallelism: null
+        taskManagerNumber: 1
+        dsLabel: "default_yarn"
+      jobAttrList:
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "yarn.application.queue"
+        jobAttrValue: '{"dsName":"default_yarn","dsLabel":"default_yarn","testQueue":"root.default","prodQueue":"root.default"}'
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "taskmanager.numberOfTaskSlots"
+        jobAttrValue: "1"
+      - jobAttrType:
+          value: 1
+          label: "^作^业^变^量"
+        jobAttrKey: "some_key"
+        jobAttrValue: "some_value"
+      enableBillingCheck: 0
+
+- name: "测试保存或更新作业接口，缺失顶层必填字段: remark"
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer ${valid_token}"
+    json:
+      jobCode: 1539950205994752
+      archFullPath: "root"
+      jobName: "wzs_mysql_hive_all"
+      jobNameEn: "wzs_mysql_hive_all"
+      supportResume: false
+      sourceDsType:
+        label: "MySQL"
+        value: "MySQL"
+      targetDsType:
+        label: "Hive"
+        value: "Hive"
+      dirtyDataOutputConfig:
+        isStorage: false
+        storagePath: ""
+      streamingMediaDTO:
+        isFrameExtracting: false
+      datasourceList:
+      - datasourceType:
+          value: "source"
+          label: "source"
+        dsTableName: "wzs_test_userinfo1"
+        dsName: "autotest_mysql"
+        dsType:
+          label: "MySQL"
+          value: "MySQL"
+        metaTabId: "wzs_test_userinfo1"
+        databaseName: "starlink_pro"
+        dsConfig:
+          codeType:
+            value: "UTF-8"
+          dsConfigWayEnum:
+            value: "single_database_single_table"
+          partitionNum: 1
+          fetchSize: 1000
+          dataPluginType: "MySQL"
+          writeMode: "append"
+          compressCodec: "none"
+      - datasourceType:
+          value: "target"
+          label: "target"
+        dsTableName: "wzs_test_userinfo2"
+        dsName: "autotest_hive"
+        dsType:
+          label: "Hive"
+          value: "Hive"
+        metaTabId: "MD_PT_e3a6dadcd671457e9ff51ea0267833bb"
+        databaseName: "another_db"
+        dsConfig:
+          writeMode: "append"
+          compressCodec: "none"
+          dataPluginType: "Hive"
+          partitionNum: 1
+      mapperList:
+      - id: 21
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "id"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 1
+        customerFiled: false
+        targetModelFieldId: "MD_PTFa451748916034470bd935d0094408574"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "id"
+        targetFieldType: "int"
+        primaryKey: true
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "id"
+      - id: 22
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "name"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "varchar"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 2
+        customerFiled: false
+        targetModelFieldId: "MD_PTF3582a165fb764c9db06289f1dc6e274d"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "name"
+        targetFieldType: "varchar"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "name"
+      - id: 23
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "age"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 3
+        customerFiled: false
+        targetModelFieldId: "MD_PTFd8fa7393308b469c8f2f906d562f2629"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "age"
+        targetFieldType: "int"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "age"
+      filterRuleList: []
+      jobSyncType:
+        label: "^增^量^同^步"
+        value: "1"
+      jobExecMode:
+        label: "^批^采^集"
+        value: "batch"
+      resourceAllocation:
+        dsName: "default_yarn"
+        prodQueue: "root.default"
+        testQueue: "root.default"
+        cores: null
+        jobManagerMemory: null
+        taskManagerMemory: null
+        parallelism: null
+        taskManagerNumber: 1
+        dsLabel: "default_yarn"
+      jobAttrList:
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "yarn.application.queue"
+        jobAttrValue: '{"dsName":"default_yarn","dsLabel":"default_yarn","testQueue":"root.default","prodQueue":"root.default"}'
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "taskmanager.numberOfTaskSlots"
+        jobAttrValue: "1"
+      - jobAttrType:
+          value: 1
+          label: "^作^业^变^量"
+        jobAttrKey: "some_key"
+        jobAttrValue: "some_value"
+      enableBillingCheck: 0
+
+- name: "测试保存或更新作业接口，缺失顶层必填字段: supportResume"
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer ${valid_token}"
+    json:
+      jobCode: 1539950205994752
+      archFullPath: "root"
+      jobName: "wzs_mysql_hive_all"
+      jobNameEn: "wzs_mysql_hive_all"
+      remark: "wzs_mysql_hive_all"
+      sourceDsType:
+        label: "MySQL"
+        value: "MySQL"
+      targetDsType:
+        label: "Hive"
+        value: "Hive"
+      dirtyDataOutputConfig:
+        isStorage: false
+        storagePath: ""
+      streamingMediaDTO:
+        isFrameExtracting: false
+      datasourceList:
+      - datasourceType:
+          value: "source"
+          label: "source"
+        dsTableName: "wzs_test_userinfo1"
+        dsName: "autotest_mysql"
+        dsType:
+          label: "MySQL"
+          value: "MySQL"
+        metaTabId: "wzs_test_userinfo1"
+        databaseName: "starlink_pro"
+        dsConfig:
+          codeType:
+            value: "UTF-8"
+          dsConfigWayEnum:
+            value: "single_database_single_table"
+          partitionNum: 1
+          fetchSize: 1000
+          dataPluginType: "MySQL"
+          writeMode: "append"
+          compressCodec: "none"
+      - datasourceType:
+          value: "target"
+          label: "target"
+        dsTableName: "wzs_test_userinfo2"
+        dsName: "autotest_hive"
+        dsType:
+          label: "Hive"
+          value: "Hive"
+        metaTabId: "MD_PT_e3a6dadcd671457e9ff51ea0267833bb"
+        databaseName: "another_db"
+        dsConfig:
+          writeMode: "append"
+          compressCodec: "none"
+          dataPluginType: "Hive"
+          partitionNum: 1
+      mapperList:
+      - id: 21
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "id"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 1
+        customerFiled: false
+        targetModelFieldId: "MD_PTFa451748916034470bd935d0094408574"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "id"
+        targetFieldType: "int"
+        primaryKey: true
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "id"
+      - id: 22
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "name"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "varchar"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 2
+        customerFiled: false
+        targetModelFieldId: "MD_PTF3582a165fb764c9db06289f1dc6e274d"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "name"
+        targetFieldType: "varchar"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "name"
+      - id: 23
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "age"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 3
+        customerFiled: false
+        targetModelFieldId: "MD_PTFd8fa7393308b469c8f2f906d562f2629"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "age"
+        targetFieldType: "int"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "age"
+      filterRuleList: []
+      jobSyncType:
+        label: "^增^量^同^步"
+        value: "1"
+      jobExecMode:
+        label: "^批^采^集"
+        value: "batch"
+      resourceAllocation:
+        dsName: "default_yarn"
+        prodQueue: "root.default"
+        testQueue: "root.default"
+        cores: null
+        jobManagerMemory: null
+        taskManagerMemory: null
+        parallelism: null
+        taskManagerNumber: 1
+        dsLabel: "default_yarn"
+      jobAttrList:
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "yarn.application.queue"
+        jobAttrValue: '{"dsName":"default_yarn","dsLabel":"default_yarn","testQueue":"root.default","prodQueue":"root.default"}'
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "taskmanager.numberOfTaskSlots"
+        jobAttrValue: "1"
+      - jobAttrType:
+          value: 1
+          label: "^作^业^变^量"
+        jobAttrKey: "some_key"
+        jobAttrValue: "some_value"
+      enableBillingCheck: 0
+
+- name: "测试保存或更新作业接口，缺失顶层必填字段: sourceDsType"
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer ${valid_token}"
+    json:
+      jobCode: 1539950205994752
+      archFullPath: "root"
+      jobName: "wzs_mysql_hive_all"
+      jobNameEn: "wzs_mysql_hive_all"
+      remark: "wzs_mysql_hive_all"
+      supportResume: false
+      targetDsType:
+        label: "Hive"
+        value: "Hive"
+      dirtyDataOutputConfig:
+        isStorage: false
+        storagePath: ""
+      streamingMediaDTO:
+        isFrameExtracting: false
+      datasourceList:
+      - datasourceType:
+          value: "source"
+          label: "source"
+        dsTableName: "wzs_test_userinfo1"
+        dsName: "autotest_mysql"
+        dsType:
+          label: "MySQL"
+          value: "MySQL"
+        metaTabId: "wzs_test_userinfo1"
+        databaseName: "starlink_pro"
+        dsConfig:
+          codeType:
+            value: "UTF-8"
+          dsConfigWayEnum:
+            value: "single_database_single_table"
+          partitionNum: 1
+          fetchSize: 1000
+          dataPluginType: "MySQL"
+          writeMode: "append"
+          compressCodec: "none"
+      - datasourceType:
+          value: "target"
+          label: "target"
+        dsTableName: "wzs_test_userinfo2"
+        dsName: "autotest_hive"
+        dsType:
+          label: "Hive"
+          value: "Hive"
+        metaTabId: "MD_PT_e3a6dadcd671457e9ff51ea0267833bb"
+        databaseName: "another_db"
+        dsConfig:
+          writeMode: "append"
+          compressCodec: "none"
+          dataPluginType: "Hive"
+          partitionNum: 1
+      mapperList:
+      - id: 21
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "id"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 1
+        customerFiled: false
+        targetModelFieldId: "MD_PTFa451748916034470bd935d0094408574"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "id"
+        targetFieldType: "int"
+        primaryKey: true
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "id"
+      - id: 22
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "name"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "varchar"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 2
+        customerFiled: false
+        targetModelFieldId: "MD_PTF3582a165fb764c9db06289f1dc6e274d"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "name"
+        targetFieldType: "varchar"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "name"
+      - id: 23
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "age"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 3
+        customerFiled: false
+        targetModelFieldId: "MD_PTFd8fa7393308b469c8f2f906d562f2629"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "age"
+        targetFieldType: "int"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "age"
+      filterRuleList: []
+      jobSyncType:
+        label: "^增^量^同^步"
+        value: "1"
+      jobExecMode:
+        label: "^批^采^集"
+        value: "batch"
+      resourceAllocation:
+        dsName: "default_yarn"
+        prodQueue: "root.default"
+        testQueue: "root.default"
+        cores: null
+        jobManagerMemory: null
+        taskManagerMemory: null
+        parallelism: null
+        taskManagerNumber: 1
+        dsLabel: "default_yarn"
+      jobAttrList:
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "yarn.application.queue"
+        jobAttrValue: '{"dsName":"default_yarn","dsLabel":"default_yarn","testQueue":"root.default","prodQueue":"root.default"}'
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "taskmanager.numberOfTaskSlots"
+        jobAttrValue: "1"
+      - jobAttrType:
+          value: 1
+          label: "^作^业^变^量"
+        jobAttrKey: "some_key"
+        jobAttrValue: "some_value"
+      enableBillingCheck: 0
+
+- name: "测试保存或更新作业接口，缺失顶层必填字段: targetDsType"
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer ${valid_token}"
+    json:
+      jobCode: 1539950205994752
+      archFullPath: "root"
+      jobName: "wzs_mysql_hive_all"
+      jobNameEn: "wzs_mysql_hive_all"
+      remark: "wzs_mysql_hive_all"
+      supportResume: false
+      sourceDsType:
+        label: "MySQL"
+        value: "MySQL"
+      dirtyDataOutputConfig:
+        isStorage: false
+        storagePath: ""
+      streamingMediaDTO:
+        isFrameExtracting: false
+      datasourceList:
+      - datasourceType:
+          value: "source"
+          label: "source"
+        dsTableName: "wzs_test_userinfo1"
+        dsName: "autotest_mysql"
+        dsType:
+          label: "MySQL"
+          value: "MySQL"
+        metaTabId: "wzs_test_userinfo1"
+        databaseName: "starlink_pro"
+        dsConfig:
+          codeType:
+            value: "UTF-8"
+          dsConfigWayEnum:
+            value: "single_database_single_table"
+          partitionNum: 1
+          fetchSize: 1000
+          dataPluginType: "MySQL"
+          writeMode: "append"
+          compressCodec: "none"
+      - datasourceType:
+          value: "target"
+          label: "target"
+        dsTableName: "wzs_test_userinfo2"
+        dsName: "autotest_hive"
+        dsType:
+          label: "Hive"
+          value: "Hive"
+        metaTabId: "MD_PT_e3a6dadcd671457e9ff51ea0267833bb"
+        databaseName: "another_db"
+        dsConfig:
+          writeMode: "append"
+          compressCodec: "none"
+          dataPluginType: "Hive"
+          partitionNum: 1
+      mapperList:
+      - id: 21
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "id"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 1
+        customerFiled: false
+        targetModelFieldId: "MD_PTFa451748916034470bd935d0094408574"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "id"
+        targetFieldType: "int"
+        primaryKey: true
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "id"
+      - id: 22
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "name"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "varchar"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 2
+        customerFiled: false
+        targetModelFieldId: "MD_PTF3582a165fb764c9db06289f1dc6e274d"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "name"
+        targetFieldType: "varchar"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "name"
+      - id: 23
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "age"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 3
+        customerFiled: false
+        targetModelFieldId: "MD_PTFd8fa7393308b469c8f2f906d562f2629"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "age"
+        targetFieldType: "int"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "age"
+      filterRuleList: []
+      jobSyncType:
+        label: "^增^量^同^步"
+        value: "1"
+      jobExecMode:
+        label: "^批^采^集"
+        value: "batch"
+      resourceAllocation:
+        dsName: "default_yarn"
+        prodQueue: "root.default"
+        testQueue: "root.default"
+        cores: null
+        jobManagerMemory: null
+        taskManagerMemory: null
+        parallelism: null
+        taskManagerNumber: 1
+        dsLabel: "default_yarn"
+      jobAttrList:
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "yarn.application.queue"
+        jobAttrValue: '{"dsName":"default_yarn","dsLabel":"default_yarn","testQueue":"root.default","prodQueue":"root.default"}'
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "taskmanager.numberOfTaskSlots"
+        jobAttrValue: "1"
+      - jobAttrType:
+          value: 1
+          label: "^作^业^变^量"
+        jobAttrKey: "some_key"
+        jobAttrValue: "some_value"
+      enableBillingCheck: 0
+
+- name: "测试保存或更新作业接口，缺失顶层必填字段: dirtyDataOutputConfig"
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer ${valid_token}"
+    json:
+      jobCode: 1539950205994752
+      archFullPath: "root"
+      jobName: "wzs_mysql_hive_all"
+      jobNameEn: "wzs_mysql_hive_all"
+      remark: "wzs_mysql_hive_all"
+      supportResume: false
+      sourceDsType:
+        label: "MySQL"
+        value: "MySQL"
+      targetDsType:
+        label: "Hive"
+        value: "Hive"
+      streamingMediaDTO:
+        isFrameExtracting: false
+      datasourceList:
+      - datasourceType:
+          value: "source"
+          label: "source"
+        dsTableName: "wzs_test_userinfo1"
+        dsName: "autotest_mysql"
+        dsType:
+          label: "MySQL"
+          value: "MySQL"
+        metaTabId: "wzs_test_userinfo1"
+        databaseName: "starlink_pro"
+        dsConfig:
+          codeType:
+            value: "UTF-8"
+          dsConfigWayEnum:
+            value: "single_database_single_table"
+          partitionNum: 1
+          fetchSize: 1000
+          dataPluginType: "MySQL"
+          writeMode: "append"
+          compressCodec: "none"
+      - datasourceType:
+          value: "target"
+          label: "target"
+        dsTableName: "wzs_test_userinfo2"
+        dsName: "autotest_hive"
+        dsType:
+          label: "Hive"
+          value: "Hive"
+        metaTabId: "MD_PT_e3a6dadcd671457e9ff51ea0267833bb"
+        databaseName: "another_db"
+        dsConfig:
+          writeMode: "append"
+          compressCodec: "none"
+          dataPluginType: "Hive"
+          partitionNum: 1
+      mapperList:
+      - id: 21
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "id"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 1
+        customerFiled: false
+        targetModelFieldId: "MD_PTFa451748916034470bd935d0094408574"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "id"
+        targetFieldType: "int"
+        primaryKey: true
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "id"
+      - id: 22
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "name"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "varchar"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 2
+        customerFiled: false
+        targetModelFieldId: "MD_PTF3582a165fb764c9db06289f1dc6e274d"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "name"
+        targetFieldType: "varchar"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "name"
+      - id: 23
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "age"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 3
+        customerFiled: false
+        targetModelFieldId: "MD_PTFd8fa7393308b469c8f2f906d562f2629"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "age"
+        targetFieldType: "int"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "age"
+      filterRuleList: []
+      jobSyncType:
+        label: "^增^量^同^步"
+        value: "1"
+      jobExecMode:
+        label: "^批^采^集"
+        value: "batch"
+      resourceAllocation:
+        dsName: "default_yarn"
+        prodQueue: "root.default"
+        testQueue: "root.default"
+        cores: null
+        jobManagerMemory: null
+        taskManagerMemory: null
+        parallelism: null
+        taskManagerNumber: 1
+        dsLabel: "default_yarn"
+      jobAttrList:
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "yarn.application.queue"
+        jobAttrValue: '{"dsName":"default_yarn","dsLabel":"default_yarn","testQueue":"root.default","prodQueue":"root.default"}'
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "taskmanager.numberOfTaskSlots"
+        jobAttrValue: "1"
+      - jobAttrType:
+          value: 1
+          label: "^作^业^变^量"
+        jobAttrKey: "some_key"
+        jobAttrValue: "some_value"
+      enableBillingCheck: 0
+
+- name: "测试保存或更新作业接口，缺失顶层必填字段: streamingMediaDTO"
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer ${valid_token}"
+    json:
+      jobCode: 1539950205994752
+      archFullPath: "root"
+      jobName: "wzs_mysql_hive_all"
+      jobNameEn: "wzs_mysql_hive_all"
+      remark: "wzs_mysql_hive_all"
+      supportResume: false
+      sourceDsType:
+        label: "MySQL"
+        value: "MySQL"
+      targetDsType:
+        label: "Hive"
+        value: "Hive"
+      dirtyDataOutputConfig:
+        isStorage: false
+        storagePath: ""
+      datasourceList:
+      - datasourceType:
+          value: "source"
+          label: "source"
+        dsTableName: "wzs_test_userinfo1"
+        dsName: "autotest_mysql"
+        dsType:
+          label: "MySQL"
+          value: "MySQL"
+        metaTabId: "wzs_test_userinfo1"
+        databaseName: "starlink_pro"
+        dsConfig:
+          codeType:
+            value: "UTF-8"
+          dsConfigWayEnum:
+            value: "single_database_single_table"
+          partitionNum: 1
+          fetchSize: 1000
+          dataPluginType: "MySQL"
+          writeMode: "append"
+          compressCodec: "none"
+      - datasourceType:
+          value: "target"
+          label: "target"
+        dsTableName: "wzs_test_userinfo2"
+        dsName: "autotest_hive"
+        dsType:
+          label: "Hive"
+          value: "Hive"
+        metaTabId: "MD_PT_e3a6dadcd671457e9ff51ea0267833bb"
+        databaseName: "another_db"
+        dsConfig:
+          writeMode: "append"
+          compressCodec: "none"
+          dataPluginType: "Hive"
+          partitionNum: 1
+      mapperList:
+      - id: 21
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "id"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 1
+        customerFiled: false
+        targetModelFieldId: "MD_PTFa451748916034470bd935d0094408574"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "id"
+        targetFieldType: "int"
+        primaryKey: true
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "id"
+      - id: 22
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "name"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "varchar"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 2
+        customerFiled: false
+        targetModelFieldId: "MD_PTF3582a165fb764c9db06289f1dc6e274d"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "name"
+        targetFieldType: "varchar"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "name"
+      - id: 23
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "age"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 3
+        customerFiled: false
+        targetModelFieldId: "MD_PTFd8fa7393308b469c8f2f906d562f2629"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "age"
+        targetFieldType: "int"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "age"
+      filterRuleList: []
+      jobSyncType:
+        label: "^增^量^同^步"
+        value: "1"
+      jobExecMode:
+        label: "^批^采^集"
+        value: "batch"
+      resourceAllocation:
+        dsName: "default_yarn"
+        prodQueue: "root.default"
+        testQueue: "root.default"
+        cores: null
+        jobManagerMemory: null
+        taskManagerMemory: null
+        parallelism: null
+        taskManagerNumber: 1
+        dsLabel: "default_yarn"
+      jobAttrList:
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "yarn.application.queue"
+        jobAttrValue: '{"dsName":"default_yarn","dsLabel":"default_yarn","testQueue":"root.default","prodQueue":"root.default"}'
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "taskmanager.numberOfTaskSlots"
+        jobAttrValue: "1"
+      - jobAttrType:
+          value: 1
+          label: "^作^业^变^量"
+        jobAttrKey: "some_key"
+        jobAttrValue: "some_value"
+      enableBillingCheck: 0
+
+- name: "测试保存或更新作业接口，缺失顶层必填字段: datasourceList"
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer ${valid_token}"
+    json:
+      jobCode: 1539950205994752
+      archFullPath: "root"
+      jobName: "wzs_mysql_hive_all"
+      jobNameEn: "wzs_mysql_hive_all"
+      remark: "wzs_mysql_hive_all"
+      supportResume: false
+      sourceDsType:
+        label: "MySQL"
+        value: "MySQL"
+      targetDsType:
+        label: "Hive"
+        value: "Hive"
+      dirtyDataOutputConfig:
+        isStorage: false
+        storagePath: ""
+      streamingMediaDTO:
+        isFrameExtracting: false
+      mapperList:
+      - id: 21
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "id"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 1
+        customerFiled: false
+        targetModelFieldId: "MD_PTFa451748916034470bd935d0094408574"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "id"
+        targetFieldType: "int"
+        primaryKey: true
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "id"
+      - id: 22
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "name"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "varchar"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 2
+        customerFiled: false
+        targetModelFieldId: "MD_PTF3582a165fb764c9db06289f1dc6e274d"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "name"
+        targetFieldType: "varchar"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "name"
+      - id: 23
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "age"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 3
+        customerFiled: false
+        targetModelFieldId: "MD_PTFd8fa7393308b469c8f2f906d562f2629"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "age"
+        targetFieldType: "int"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "age"
+      filterRuleList: []
+      jobSyncType:
+        label: "^增^量^同^步"
+        value: "1"
+      jobExecMode:
+        label: "^批^采^集"
+        value: "batch"
+      resourceAllocation:
+        dsName: "default_yarn"
+        prodQueue: "root.default"
+        testQueue: "root.default"
+        cores: null
+        jobManagerMemory: null
+        taskManagerMemory: null
+        parallelism: null
+        taskManagerNumber: 1
+        dsLabel: "default_yarn"
+      jobAttrList:
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "yarn.application.queue"
+        jobAttrValue: '{"dsName":"default_yarn","dsLabel":"default_yarn","testQueue":"root.default","prodQueue":"root.default"}'
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "taskmanager.numberOfTaskSlots"
+        jobAttrValue: "1"
+      - jobAttrType:
+          value: 1
+          label: "^作^业^变^量"
+        jobAttrKey: "some_key"
+        jobAttrValue: "some_value"
+      enableBillingCheck: 0
+
+- name: "测试保存或更新作业接口，缺失顶层必填字段: mapperList"
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer ${valid_token}"
+    json:
+      jobCode: 1539950205994752
+      archFullPath: "root"
+      jobName: "wzs_mysql_hive_all"
+      jobNameEn: "wzs_mysql_hive_all"
+      remark: "wzs_mysql_hive_all"
+      supportResume: false
+      sourceDsType:
+        label: "MySQL"
+        value: "MySQL"
+      targetDsType:
+        label: "Hive"
+        value: "Hive"
+      dirtyDataOutputConfig:
+        isStorage: false
+        storagePath: ""
+      streamingMediaDTO:
+        isFrameExtracting: false
+      datasourceList:
+      - datasourceType:
+          value: "source"
+          label: "source"
+        dsTableName: "wzs_test_userinfo1"
+        dsName: "autotest_mysql"
+        dsType:
+          label: "MySQL"
+          value: "MySQL"
+        metaTabId: "wzs_test_userinfo1"
+        databaseName: "starlink_pro"
+        dsConfig:
+          codeType:
+            value: "UTF-8"
+          dsConfigWayEnum:
+            value: "single_database_single_table"
+          partitionNum: 1
+          fetchSize: 1000
+          dataPluginType: "MySQL"
+          writeMode: "append"
+          compressCodec: "none"
+      - datasourceType:
+          value: "target"
+          label: "target"
+        dsTableName: "wzs_test_userinfo2"
+        dsName: "autotest_hive"
+        dsType:
+          label: "Hive"
+          value: "Hive"
+        metaTabId: "MD_PT_e3a6dadcd671457e9ff51ea0267833bb"
+        databaseName: "another_db"
+        dsConfig:
+          writeMode: "append"
+          compressCodec: "none"
+          dataPluginType: "Hive"
+          partitionNum: 1
+      filterRuleList: []
+      jobSyncType:
+        label: "^增^量^同^步"
+        value: "1"
+      jobExecMode:
+        label: "^批^采^集"
+        value: "batch"
+      resourceAllocation:
+        dsName: "default_yarn"
+        prodQueue: "root.default"
+        testQueue: "root.default"
+        cores: null
+        jobManagerMemory: null
+        taskManagerMemory: null
+        parallelism: null
+        taskManagerNumber: 1
+        dsLabel: "default_yarn"
+      jobAttrList:
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "yarn.application.queue"
+        jobAttrValue: '{"dsName":"default_yarn","dsLabel":"default_yarn","testQueue":"root.default","prodQueue":"root.default"}'
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "taskmanager.numberOfTaskSlots"
+        jobAttrValue: "1"
+      - jobAttrType:
+          value: 1
+          label: "^作^业^变^量"
+        jobAttrKey: "some_key"
+        jobAttrValue: "some_value"
+      enableBillingCheck: 0
+
+- name: "测试保存或更新作业接口，缺失顶层必填字段: filterRuleList"
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer ${valid_token}"
+    json:
+      jobCode: 1539950205994752
+      archFullPath: "root"
+      jobName: "wzs_mysql_hive_all"
+      jobNameEn: "wzs_mysql_hive_all"
+      remark: "wzs_mysql_hive_all"
+      supportResume: false
+      sourceDsType:
+        label: "MySQL"
+        value: "MySQL"
+      targetDsType:
+        label: "Hive"
+        value: "Hive"
+      dirtyDataOutputConfig:
+        isStorage: false
+        storagePath: ""
+      streamingMediaDTO:
+        isFrameExtracting: false
+      datasourceList:
+      - datasourceType:
+          value: "source"
+          label: "source"
+        dsTableName: "wzs_test_userinfo1"
+        dsName: "autotest_mysql"
+        dsType:
+          label: "MySQL"
+          value: "MySQL"
+        metaTabId: "wzs_test_userinfo1"
+        databaseName: "starlink_pro"
+        dsConfig:
+          codeType:
+            value: "UTF-8"
+          dsConfigWayEnum:
+            value: "single_database_single_table"
+          partitionNum: 1
+          fetchSize: 1000
+          dataPluginType: "MySQL"
+          writeMode: "append"
+          compressCodec: "none"
+      - datasourceType:
+          value: "target"
+          label: "target"
+        dsTableName: "wzs_test_userinfo2"
+        dsName: "autotest_hive"
+        dsType:
+          label: "Hive"
+          value: "Hive"
+        metaTabId: "MD_PT_e3a6dadcd671457e9ff51ea0267833bb"
+        databaseName: "another_db"
+        dsConfig:
+          writeMode: "append"
+          compressCodec: "none"
+          dataPluginType: "Hive"
+          partitionNum: 1
+      mapperList:
+      - id: 21
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "id"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 1
+        customerFiled: false
+        targetModelFieldId: "MD_PTFa451748916034470bd935d0094408574"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "id"
+        targetFieldType: "int"
+        primaryKey: true
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "id"
+      - id: 22
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "name"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "varchar"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 2
+        customerFiled: false
+        targetModelFieldId: "MD_PTF3582a165fb764c9db06289f1dc6e274d"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "name"
+        targetFieldType: "varchar"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "name"
+      - id: 23
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "age"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 3
+        customerFiled: false
+        targetModelFieldId: "MD_PTFd8fa7393308b469c8f2f906d562f2629"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "age"
+        targetFieldType: "int"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "age"
+      jobSyncType:
+        label: "^增^量^同^步"
+        value: "1"
+      jobExecMode:
+        label: "^批^采^集"
+        value: "batch"
+      resourceAllocation:
+        dsName: "default_yarn"
+        prodQueue: "root.default"
+        testQueue: "root.default"
+        cores: null
+        jobManagerMemory: null
+        taskManagerMemory: null
+        parallelism: null
+        taskManagerNumber: 1
+        dsLabel: "default_yarn"
+      jobAttrList:
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "yarn.application.queue"
+        jobAttrValue: '{"dsName":"default_yarn","dsLabel":"default_yarn","testQueue":"root.default","prodQueue":"root.default"}'
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "taskmanager.numberOfTaskSlots"
+        jobAttrValue: "1"
+      - jobAttrType:
+          value: 1
+          label: "^作^业^变^量"
+        jobAttrKey: "some_key"
+        jobAttrValue: "some_value"
+      enableBillingCheck: 0
+
+- name: "测试保存或更新作业接口，缺失顶层必填字段: jobSyncType"
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer ${valid_token}"
+    json:
+      jobCode: 1539950205994752
+      archFullPath: "root"
+      jobName: "wzs_mysql_hive_all"
+      jobNameEn: "wzs_mysql_hive_all"
+      remark: "wzs_mysql_hive_all"
+      supportResume: false
+      sourceDsType:
+        label: "MySQL"
+        value: "MySQL"
+      targetDsType:
+        label: "Hive"
+        value: "Hive"
+      dirtyDataOutputConfig:
+        isStorage: false
+        storagePath: ""
+      streamingMediaDTO:
+        isFrameExtracting: false
+      datasourceList:
+      - datasourceType:
+          value: "source"
+          label: "source"
+        dsTableName: "wzs_test_userinfo1"
+        dsName: "autotest_mysql"
+        dsType:
+          label: "MySQL"
+          value: "MySQL"
+        metaTabId: "wzs_test_userinfo1"
+        databaseName: "starlink_pro"
+        dsConfig:
+          codeType:
+            value: "UTF-8"
+          dsConfigWayEnum:
+            value: "single_database_single_table"
+          partitionNum: 1
+          fetchSize: 1000
+          dataPluginType: "MySQL"
+          writeMode: "append"
+          compressCodec: "none"
+      - datasourceType:
+          value: "target"
+          label: "target"
+        dsTableName: "wzs_test_userinfo2"
+        dsName: "autotest_hive"
+        dsType:
+          label: "Hive"
+          value: "Hive"
+        metaTabId: "MD_PT_e3a6dadcd671457e9ff51ea0267833bb"
+        databaseName: "another_db"
+        dsConfig:
+          writeMode: "append"
+          compressCodec: "none"
+          dataPluginType: "Hive"
+          partitionNum: 1
+      mapperList:
+      - id: 21
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "id"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 1
+        customerFiled: false
+        targetModelFieldId: "MD_PTFa451748916034470bd935d0094408574"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "id"
+        targetFieldType: "int"
+        primaryKey: true
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "id"
+      - id: 22
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "name"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "varchar"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 2
+        customerFiled: false
+        targetModelFieldId: "MD_PTF3582a165fb764c9db06289f1dc6e274d"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "name"
+        targetFieldType: "varchar"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "name"
+      - id: 23
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "age"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 3
+        customerFiled: false
+        targetModelFieldId: "MD_PTFd8fa7393308b469c8f2f906d562f2629"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "age"
+        targetFieldType: "int"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "age"
+      filterRuleList: []
+      jobExecMode:
+        label: "^批^采^集"
+        value: "batch"
+      resourceAllocation:
+        dsName: "default_yarn"
+        prodQueue: "root.default"
+        testQueue: "root.default"
+        cores: null
+        jobManagerMemory: null
+        taskManagerMemory: null
+        parallelism: null
+        taskManagerNumber: 1
+        dsLabel: "default_yarn"
+      jobAttrList:
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "yarn.application.queue"
+        jobAttrValue: '{"dsName":"default_yarn","dsLabel":"default_yarn","testQueue":"root.default","prodQueue":"root.default"}'
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "taskmanager.numberOfTaskSlots"
+        jobAttrValue: "1"
+      - jobAttrType:
+          value: 1
+          label: "^作^业^变^量"
+        jobAttrKey: "some_key"
+        jobAttrValue: "some_value"
+      enableBillingCheck: 0
+
+- name: "测试保存或更新作业接口，缺失顶层必填字段: jobExecMode"
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer ${valid_token}"
+    json:
+      jobCode: 1539950205994752
+      archFullPath: "root"
+      jobName: "wzs_mysql_hive_all"
+      jobNameEn: "wzs_mysql_hive_all"
+      remark: "wzs_mysql_hive_all"
+      supportResume: false
+      sourceDsType:
+        label: "MySQL"
+        value: "MySQL"
+      targetDsType:
+        label: "Hive"
+        value: "Hive"
+      dirtyDataOutputConfig:
+        isStorage: false
+        storagePath: ""
+      streamingMediaDTO:
+        isFrameExtracting: false
+      datasourceList:
+      - datasourceType:
+          value: "source"
+          label: "source"
+        dsTableName: "wzs_test_userinfo1"
+        dsName: "autotest_mysql"
+        dsType:
+          label: "MySQL"
+          value: "MySQL"
+        metaTabId: "wzs_test_userinfo1"
+        databaseName: "starlink_pro"
+        dsConfig:
+          codeType:
+            value: "UTF-8"
+          dsConfigWayEnum:
+            value: "single_database_single_table"
+          partitionNum: 1
+          fetchSize: 1000
+          dataPluginType: "MySQL"
+          writeMode: "append"
+          compressCodec: "none"
+      - datasourceType:
+          value: "target"
+          label: "target"
+        dsTableName: "wzs_test_userinfo2"
+        dsName: "autotest_hive"
+        dsType:
+          label: "Hive"
+          value: "Hive"
+        metaTabId: "MD_PT_e3a6dadcd671457e9ff51ea0267833bb"
+        databaseName: "another_db"
+        dsConfig:
+          writeMode: "append"
+          compressCodec: "none"
+          dataPluginType: "Hive"
+          partitionNum: 1
+      mapperList:
+      - id: 21
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "id"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 1
+        customerFiled: false
+        targetModelFieldId: "MD_PTFa451748916034470bd935d0094408574"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "id"
+        targetFieldType: "int"
+        primaryKey: true
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "id"
+      - id: 22
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "name"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "varchar"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 2
+        customerFiled: false
+        targetModelFieldId: "MD_PTF3582a165fb764c9db06289f1dc6e274d"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "name"
+        targetFieldType: "varchar"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "name"
+      - id: 23
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "age"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 3
+        customerFiled: false
+        targetModelFieldId: "MD_PTFd8fa7393308b469c8f2f906d562f2629"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "age"
+        targetFieldType: "int"
+        primaryKey: false
+        partitionKey: false
+        partitionKeySeq: 0
+        partitionKeyType: null
+        partitionKeyAttrs: null
+        timePartitionConfig: null
+        fieldProcessorConfig: null
+        fieldProcessorConfigAttrs: null
+        shardingKey: false
+        columnFamily: ""
+        name: "age"
+      filterRuleList: []
+      jobSyncType:
+        label: "^增^量^同^步"
+        value: "1"
+      resourceAllocation:
+        dsName: "default_yarn"
+        prodQueue: "root.default"
+        testQueue: "root.default"
+        cores: null
+        jobManagerMemory: null
+        taskManagerMemory: null
+        parallelism: null
+        taskManagerNumber: 1
+        dsLabel: "default_yarn"
+      jobAttrList:
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "yarn.application.queue"
+        jobAttrValue: '{"dsName":"default_yarn","dsLabel":"default_yarn","testQueue":"root.default","prodQueue":"root.default"}'
+      - jobAttrType:
+          value: 2
+          label: "^作^业^属^性"
+        jobAttrKey: "taskmanager.numberOfTaskSlots"
+        jobAttrValue: "1"
+      - jobAttrType:
+          value: 1
+          label: "^作^业^变^量"
+        jobAttrKey: "some_key"
+        jobAttrValue: "some_value"
+      enableBillingCheck: 0
+
+- name: "测试保存或更新作业接口，缺失顶层必填字段: resourceAllocation"
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer ${valid_token}"
+    json:
+      jobCode: 1539950205994752
+      archFullPath: "root"
+      jobName: "wzs_mysql_hive_all"
+      jobNameEn: "wzs_mysql_hive_all"
+      remark: "wzs_mysql_hive_all"
+      supportResume: false
+      sourceDsType:
+        label: "MySQL"
+        value: "MySQL"
+      targetDsType:
+        label: "Hive"
+        value: "Hive"
+      dirtyDataOutputConfig:
+        isStorage: false
+        storagePath: ""
+      streamingMediaDTO:
+        isFrameExtracting: false
+      datasourceList:
+      - datasourceType:
+          value: "source"
+          label: "source"
+        dsTableName: "wzs_test_userinfo1"
+        dsName: "autotest_mysql"
+        dsType:
+          label: "MySQL"
+          value: "MySQL"
+        metaTabId: "wzs_test_userinfo1"
+        databaseName: "starlink_pro"
+        dsConfig:
+          codeType:
+            value: "UTF-8"
+          dsConfigWayEnum:
+            value: "single_database_single_table"
+          partitionNum: 1
+          fetchSize: 1000
+          dataPluginType: "MySQL"
+          writeMode: "append"
+          compressCodec: "none"
+      - datasourceType:
+          value: "target"
+          label: "target"
+        dsTableName: "wzs_test_userinfo2"
+        dsName: "autotest_hive"
+        dsType:
+          label: "Hive"
+          value: "Hive"
+        metaTabId: "MD_PT_e3a6dadcd671457e9ff51ea0267833bb"
+        databaseName: "another_db"
+        dsConfig:
+          writeMode: "append"
+          compressCodec: "none"
+          dataPluginType: "Hive"
+          partitionNum: 1
+      mapperList:
+      - id: 21
+        createTime: "2024-12-16 15:42:44"
+        creator: "admin"
+        editor: "admin"
+        updateTime: "2024-12-17 09:57:08"
+        jobId: 11
+        sourceModelFieldId: null
+        sourceTableName: "wzs_test_userinfo1"
+        sourceFieldName: "id"
+        sourceSQLFieldName: null
+        sourceFieldDefaultValue: null
+        sourceFieldType: "int"
+        customerFiledType: null
+        sourceCustomerValue: null
+        sourceFieldSeq: 1
+        customerFiled: false
+        targetModelFieldId: "MD_PTFa451748916034470bd935d0094408574"
+        targetTableName: "wzs_test_userinfo2"
+        targetFieldName: "id"
+        targetFieldType: "int"
+        primaryKey: true
+        partitionKey: false
+        partitionKeySeq

@@ -1,0 +1,787 @@
+- name: Save or update job success with valid token and correct mandatory fields
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job success with empty array and strings
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList: []
+      jobSyncType:
+        label: ""
+        value: ""
+      jobExecMode:
+        label: ""
+        value: ""
+- name: Save or update job success array with empty strings
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - ""
+      - rule2
+      - ""
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job missing required field - filterRuleList
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job missing required field - jobSyncType
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job missing required field - jobExecMode
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+- name: Save or update job missing required field - jobSyncType.label
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job missing required field - jobSyncType.value
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: sync_label
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job missing required field - jobExecMode.label
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode:
+        value: exec_value
+- name: Save or update job missing required field - jobExecMode.value
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+- name: Save or update job invalid type or value - field filterRuleList value not_an_array
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList: "not_an_array"
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field filterRuleList value object
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList: {}
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field filterRuleList value 123
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList: 123
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field filterRuleList value null
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList: null
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field filterRuleList[0] value 123
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - 123
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field filterRuleList[0] value True
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - true
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field filterRuleList[0] value object
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - {}
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field filterRuleList[0] value array
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - []
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field filterRuleList[0] value null
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - null
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field filterRuleList value mixed types
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - valid
+      - 123
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field jobSyncType value not_an_object
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType: "not_an_object"
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field jobSyncType value array
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType: []
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field jobSyncType value 123
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType: 123
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field jobSyncType value null
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType: null
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field jobSyncType value empty object
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType: {}
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field jobSyncType.label value 123
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: 123
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field jobSyncType.label value True
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: true
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field jobSyncType.label value object
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: {}
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field jobSyncType.label value array
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: []
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field jobSyncType.label value null
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: null
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field jobSyncType.value value 456
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: 456
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field jobSyncType.value value False
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: false
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field jobSyncType.value value object
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: {}
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field jobSyncType.value value null
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: null
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid type or value - field jobExecMode value not_an_object
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode: "not_an_object"
+- name: Save or update job invalid type or value - field jobExecMode value array
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode: []
+- name: Save or update job invalid type or value - field jobExecMode value null
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode: null
+- name: Save or update job invalid type or value - field jobExecMode value empty object
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode: {}
+- name: Save or update job invalid type or value - field jobExecMode.label value 789
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode:
+        label: 789
+        value: exec_value
+- name: Save or update job invalid type or value - field jobExecMode.label value True
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode:
+        label: true
+        value: exec_value
+- name: Save or update job invalid type or value - field jobExecMode.label value null
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode:
+        label: null
+        value: exec_value
+- name: Save or update job invalid type or value - field jobExecMode.value value 1011
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: 1011
+- name: Save or update job invalid type or value - field jobExecMode.value value False
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: false
+- name: Save or update job invalid type or value - field jobExecMode.value value null
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: null
+- name: Save or update job missing authorization header
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: exec_value
+- name: Save or update job invalid authorization header
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $invalid_token"
+      Content-Type: "application/json"
+    json:
+      filterRuleList:
+      - rule1
+      - rule2
+      jobSyncType:
+        label: sync_label
+        value: sync_value
+      jobExecMode:
+        label: exec_label
+        value: exec_value

@@ -1,0 +1,673 @@
+- name: Save or update job success with valid token and correct mandatory fields
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty
+- name: Save or update job success with false boolean and empty strings
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: ""
+        value: ""
+      targetDsType:
+        label: TargetEmpty
+        value: ""
+      dirtyDataOutputConfig:
+        isStorage: false
+        storagePath: ""
+- name: Save or update job missing top level object - sourceDsType
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty
+- name: Save or update job missing top level object - targetDsType
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty
+- name: Save or update job missing top level object - dirtyDataOutputConfig
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+- name: Save or update job missing nested field - sourceDsType.label
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        value: mysql
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty
+- name: Save or update job missing nested field - sourceDsType.value
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty
+- name: Save or update job missing nested field - targetDsType.label
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType:
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty
+- name: Save or update job missing nested field - targetDsType.value
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType:
+        label: TargetFile
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty
+- name: Save or update job missing nested field - dirtyDataOutputConfig.isStorage
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        storagePath: /data/dirty
+- name: Save or update job missing nested field - dirtyDataOutputConfig.storagePath
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: true
+- name: Save or update job invalid type or value - field sourceDsType value not_an_object
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType: "not_an_object"
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty
+- name: Save or update job invalid type or value - field sourceDsType value 123
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType: 123
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty
+- name: Save or update job invalid type or value - field sourceDsType value null
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType: null
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty
+- name: Save or update job invalid type or value - field targetDsType value array
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType: []
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty
+- name: Save or update job invalid type or value - field targetDsType value null
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType: null
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty
+- name: Save or update job invalid type or value - field dirtyDataOutputConfig value 123.45
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig: 123.45
+- name: Save or update job invalid type or value - field dirtyDataOutputConfig value null
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig: null
+- name: Save or update job invalid type or value - field sourceDsType.label value 123
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: 123
+        value: mysql
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty
+- name: Save or update job invalid type or value - field sourceDsType.label value True
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: true
+        value: mysql
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty
+- name: Save or update job invalid type or value - field sourceDsType.label value null
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: null
+        value: mysql
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty
+- name: Save or update job invalid type or value - field sourceDsType.value value 456
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: 456
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty
+- name: Save or update job invalid type or value - field sourceDsType.value value False
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: false
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty
+- name: Save or update job invalid type or value - field sourceDsType.value value null
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: null
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty
+- name: Save or update job invalid type or value - field targetDsType.label value object
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType:
+        label:
+          key: value
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty
+- name: Save or update job invalid type or value - field targetDsType.label value null
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType:
+        label: null
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty
+- name: Save or update job invalid type or value - field targetDsType.value value array
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType:
+        label: TargetFile
+        value: []
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty
+- name: Save or update job invalid type or value - field targetDsType.value value null
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType:
+        label: TargetFile
+        value: null
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty
+- name: Save or update job invalid type or value - field dirtyDataOutputConfig.storagePath value 789
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: 789
+- name: Save or update job invalid type or value - field dirtyDataOutputConfig.storagePath value True
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: true
+- name: Save or update job invalid type or value - field dirtyDataOutputConfig.storagePath value null
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: null
+- name: Save or update job invalid type or value - field dirtyDataOutputConfig.isStorage value "true"
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: "true"
+        storagePath: /data/dirty
+- name: Save or update job invalid type or value - field dirtyDataOutputConfig.isStorage value 1
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: 1
+        storagePath: /data/dirty
+- name: Save or update job invalid type or value - field dirtyDataOutputConfig.isStorage value 0
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: 0
+        storagePath: /data/dirty
+- name: Save or update job invalid type or value - field dirtyDataOutputConfig.isStorage value "false"
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: "false"
+        storagePath: /data/dirty
+- name: Save or update job invalid type or value - field dirtyDataOutputConfig.isStorage value null
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: null
+        storagePath: /data/dirty
+- name: Save or update job invalid type or value - field dirtyDataOutputConfig.isStorage value empty string
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: ""
+        storagePath: /data/dirty
+- name: Save or update job missing authorization header
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty
+- name: Save or update job invalid authorization header
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $invalid_token"
+      Content-Type: "application/json"
+    json:
+      sourceDsType:
+        label: SourceDB
+        value: mysql
+      targetDsType:
+        label: TargetFile
+        value: hdfs
+      dirtyDataOutputConfig:
+        isStorage: true
+        storagePath: /data/dirty

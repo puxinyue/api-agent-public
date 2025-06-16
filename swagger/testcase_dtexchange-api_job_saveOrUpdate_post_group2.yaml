@@ -1,0 +1,200 @@
+- name: Save or update job success with valid token and correct mandatory fields
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobNameEn: "EnglishJobName"
+      remark: "Some remarks here"
+      supportResume: true
+- name: Save or update job success with false boolean value
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobNameEn: "AnotherJob"
+      remark: "Another remark"
+      supportResume: false
+- name: Save or update job success with empty strings for mandatory fields
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobNameEn: ""
+      remark: ""
+      supportResume: true
+- name: Save or update job missing required field - jobNameEn
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      remark: "Some remarks here"
+      supportResume: true
+- name: Save or update job missing required field - remark
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobNameEn: "EnglishJobName"
+      supportResume: true
+- name: Save or update job missing required field - supportResume
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobNameEn: "EnglishJobName"
+      remark: "Some remarks here"
+- name: Save or update job invalid type or value - field jobNameEn value 123
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobNameEn: 123
+      remark: "Some remarks here"
+      supportResume: true
+- name: Save or update job invalid type or value - field jobNameEn value null
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobNameEn: null
+      remark: "Some remarks here"
+      supportResume: true
+- name: Save or update job invalid type or value - field remark value 456
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobNameEn: "EnglishJobName"
+      remark: 456
+      supportResume: true
+- name: Save or update job invalid type or value - field remark value null
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobNameEn: "EnglishJobName"
+      remark: null
+      supportResume: true
+- name: Save or update job invalid type or value - field supportResume value "true"
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobNameEn: "EnglishJobName"
+      remark: "Some remarks here"
+      supportResume: "true"
+- name: Save or update job invalid type or value - field supportResume value 1
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobNameEn: "EnglishJobName"
+      remark: "Some remarks here"
+      supportResume: 1
+- name: Save or update job invalid type or value - field supportResume value 0
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobNameEn: "EnglishJobName"
+      remark: "Some remarks here"
+      supportResume: 0
+- name: Save or update job invalid type or value - field supportResume value null
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobNameEn: "EnglishJobName"
+      remark: "Some remarks here"
+      supportResume: null
+- name: Save or update job invalid type or value - field supportResume value empty string
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobNameEn: "EnglishJobName"
+      remark: "Some remarks here"
+      supportResume: ""
+- name: Save or update job missing authorization header
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Content-Type: "application/json"
+    json:
+      jobNameEn: "EnglishJobName"
+      remark: "Some remarks here"
+      supportResume: true
+- name: Save or update job invalid authorization header
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $invalid_token"
+      Content-Type: "application/json"
+    json:
+      jobNameEn: "EnglishJobName"
+      remark: "Some remarks here"
+      supportResume: true

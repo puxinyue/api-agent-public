@@ -1,0 +1,176 @@
+- name: Save or update job success
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobCode: 123
+      archFullPath: "/path/to/job/file.jar"
+      jobName: "MyAwesomeJob"
+- name: Save or update job success with empty strings
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobCode: 456
+      archFullPath: ""
+      jobName: ""
+- name: Save or update job missing required field - jobCode
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      archFullPath: "/path/to/job/file.jar"
+      jobName: "MyAwesomeJob"
+- name: Save or update job missing required field - archFullPath
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobCode: 123
+      jobName: "MyAwesomeJob"
+- name: Save or update job missing required field - jobName
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobCode: 123
+      archFullPath: "/path/to/job/file.jar"
+- name: Save or update job invalid type - field jobCode value abc
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobCode: "abc"
+      archFullPath: "/path/to/job/file.jar"
+      jobName: "MyAwesomeJob"
+- name: Save or update job invalid type - field jobCode value 12.34
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobCode: 12.34
+      archFullPath: "/path/to/job/file.jar"
+      jobName: "MyAwesomeJob"
+- name: Save or update job invalid type - field jobCode value null
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobCode: null
+      archFullPath: "/path/to/job/file.jar"
+      jobName: "MyAwesomeJob"
+- name: Save or update job invalid type - field jobCode value empty string
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobCode: ""
+      archFullPath: "/path/to/job/file.jar"
+      jobName: "MyAwesomeJob"
+- name: Save or update job invalid type - field archFullPath value 123
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobCode: 123
+      archFullPath: 123
+      jobName: "MyAwesomeJob"
+- name: Save or update job invalid type - field archFullPath value null
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobCode: 123
+      archFullPath: null
+      jobName: "MyAwesomeJob"
+- name: Save or update job invalid type - field jobName value 456
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobCode: 123
+      archFullPath: "/path/to/job/file.jar"
+      jobName: 456
+- name: Save or update job invalid type - field jobName value null
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $valid_token"
+      Content-Type: "application/json"
+    json:
+      jobCode: 123
+      archFullPath: "/path/to/job/file.jar"
+      jobName: null
+- name: Save or update job missing authorization header
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Content-Type: "application/json"
+    json:
+      jobCode: 123
+      archFullPath: "/path/to/job/file.jar"
+      jobName: "MyAwesomeJob"
+- name: Save or update job invalid authorization header
+  request:
+    url: $url/dtexchange-api/job/saveOrUpdate
+    method: POST
+    headers:
+      User-Agent: "PostmanRuntime/7.37.3"
+      Authorization: "Bearer $invalid_token"
+      Content-Type: "application/json"
+    json:
+      jobCode: 123
+      archFullPath: "/path/to/job/file.jar"
+      jobName: "MyAwesomeJob"

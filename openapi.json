@@ -7,9 +7,9 @@
   },
   "tags": [],
   "paths": {
-    "/dtexchange-api/job/page": {
+    "/dtexchange-api/job/saveOrUpdate": {
       "post": {
-        "summary": "数据交换任务查询接口",
+        "summary": "数据交换任务保存",
         "deprecated": false,
         "description": "",
         "tags": [],
@@ -51,22 +51,637 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "current": {
-                    "type": "integer"
-                  },
-                  "size": {
+                  "jobCode": {
                     "type": "integer"
                   },
                   "archFullPath": {
                     "type": "string"
+                  },
+                  "jobName": {
+                    "type": "string"
+                  },
+                  "jobNameEn": {
+                    "type": "string"
+                  },
+                  "remark": {
+                    "type": "string"
+                  },
+                  "supportResume": {
+                    "type": "boolean"
+                  },
+                  "sourceDsType": {
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["label", "value"]
+                  },
+                  "targetDsType": {
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["label", "value"]
+                  },
+                  "dirtyDataOutputConfig": {
+                    "type": "object",
+                    "properties": {
+                      "isStorage": {
+                        "type": "boolean"
+                      },
+                      "storagePath": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["isStorage", "storagePath"]
+                  },
+                  "streamingMediaDTO": {
+                    "type": "object",
+                    "properties": {
+                      "isFrameExtracting": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": ["isFrameExtracting"]
+                  },
+                  "datasourceList": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "datasourceType": {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "string"
+                            },
+                            "label": {
+                              "type": "string"
+                            }
+                          },
+                          "required": ["value"]
+                        },
+                        "dsTableName": {
+                          "type": "string"
+                        },
+                        "dsName": {
+                          "type": "string"
+                        },
+                        "dsType": {
+                          "type": "object",
+                          "properties": {
+                            "label": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "required": ["label", "value"]
+                        },
+                        "metaTabId": {
+                          "type": "string"
+                        },
+                        "databaseName": {
+                          "type": "string"
+                        },
+                        "dsConfig": {
+                          "type": "object",
+                          "properties": {
+                            "codeType": {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": ["value"]
+                            },
+                            "dsConfigWayEnum": {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": ["value"]
+                            },
+                            "partitionNum": {
+                              "type": "integer"
+                            },
+                            "fetchSize": {
+                              "type": "integer"
+                            },
+                            "dataPluginType": {
+                              "type": "string"
+                            },
+                            "writeMode": {
+                              "type": "string"
+                            },
+                            "compressCodec": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "writeMode",
+                            "compressCodec",
+                            "dataPluginType",
+                            "partitionNum"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "datasourceType",
+                        "dsTableName",
+                        "dsName",
+                        "dsType",
+                        "metaTabId",
+                        "dsConfig"
+                      ]
+                    }
+                  },
+                  "mapperList": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "createTime": {
+                          "type": "string"
+                        },
+                        "creator": {
+                          "type": "string"
+                        },
+                        "editor": {
+                          "type": "string"
+                        },
+                        "updateTime": {
+                          "type": "string"
+                        },
+                        "jobId": {
+                          "type": "integer"
+                        },
+                        "sourceModelFieldId": {
+                          "type": "null"
+                        },
+                        "sourceTableName": {
+                          "type": "string"
+                        },
+                        "sourceFieldName": {
+                          "type": "string"
+                        },
+                        "sourceSQLFieldName": {
+                          "type": "null"
+                        },
+                        "sourceFieldDefaultValue": {
+                          "type": "null"
+                        },
+                        "sourceFieldType": {
+                          "type": "string"
+                        },
+                        "customerFiledType": {
+                          "type": "null"
+                        },
+                        "sourceCustomerValue": {
+                          "type": "null"
+                        },
+                        "sourceFieldSeq": {
+                          "type": "integer"
+                        },
+                        "customerFiled": {
+                          "type": "boolean"
+                        },
+                        "targetModelFieldId": {
+                          "type": "string"
+                        },
+                        "targetTableName": {
+                          "type": "string"
+                        },
+                        "targetFieldName": {
+                          "type": "string"
+                        },
+                        "targetFieldType": {
+                          "type": "string"
+                        },
+                        "primaryKey": {
+                          "type": "boolean"
+                        },
+                        "partitionKey": {
+                          "type": "boolean"
+                        },
+                        "partitionKeySeq": {
+                          "type": "integer"
+                        },
+                        "partitionKeyType": {
+                          "type": "null"
+                        },
+                        "partitionKeyAttrs": {
+                          "type": "null"
+                        },
+                        "timePartitionConfig": {
+                          "type": "null"
+                        },
+                        "fieldProcessorConfig": {
+                          "type": "null"
+                        },
+                        "fieldProcessorConfigAttrs": {
+                          "type": "null"
+                        },
+                        "shardingKey": {
+                          "type": "boolean"
+                        },
+                        "columnFamily": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "createTime",
+                        "creator",
+                        "editor",
+                        "updateTime",
+                        "jobId",
+                        "sourceModelFieldId",
+                        "sourceTableName",
+                        "sourceFieldName",
+                        "sourceSQLFieldName",
+                        "sourceFieldDefaultValue",
+                        "sourceFieldType",
+                        "customerFiledType",
+                        "sourceCustomerValue",
+                        "sourceFieldSeq",
+                        "customerFiled",
+                        "targetModelFieldId",
+                        "targetTableName",
+                        "targetFieldName",
+                        "targetFieldType",
+                        "primaryKey",
+                        "partitionKey",
+                        "partitionKeySeq",
+                        "partitionKeyType",
+                        "partitionKeyAttrs",
+                        "timePartitionConfig",
+                        "fieldProcessorConfig",
+                        "fieldProcessorConfigAttrs",
+                        "shardingKey",
+                        "columnFamily",
+                        "name"
+                      ]
+                    }
+                  },
+                  "filterRuleList": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "jobSyncType": {
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["label", "value"]
+                  },
+                  "jobExecMode": {
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["label", "value"]
+                  },
+                  "resourceAllocation": {
+                    "type": "object",
+                    "properties": {
+                      "dsName": {
+                        "type": "string"
+                      },
+                      "prodQueue": {
+                        "type": "string"
+                      },
+                      "testQueue": {
+                        "type": "string"
+                      },
+                      "cores": {
+                        "type": "null"
+                      },
+                      "jobManagerMemory": {
+                        "type": "null"
+                      },
+                      "taskManagerMemory": {
+                        "type": "null"
+                      },
+                      "parallelism": {
+                        "type": "null"
+                      },
+                      "taskManagerNumber": {
+                        "type": "integer"
+                      },
+                      "dsLabel": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "dsName",
+                      "prodQueue",
+                      "testQueue",
+                      "cores",
+                      "jobManagerMemory",
+                      "taskManagerMemory",
+                      "parallelism",
+                      "taskManagerNumber",
+                      "dsLabel"
+                    ]
+                  },
+                  "jobAttrList": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "jobAttrType": {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "integer"
+                            },
+                            "label": {
+                              "type": "string"
+                            }
+                          },
+                          "required": ["value", "label"]
+                        },
+                        "jobAttrKey": {
+                          "type": "string"
+                        },
+                        "jobAttrValue": {
+                          "type": "string"
+                        }
+                      },
+                      "required": ["jobAttrType", "jobAttrKey", "jobAttrValue"]
+                    }
+                  },
+                  "enableBillingCheck": {
+                    "type": "integer"
                   }
                 },
-                "required": ["current", "size", "archFullPath"]
+                "required": [
+                  "jobCode",
+                  "archFullPath",
+                  "jobName",
+                  "jobNameEn",
+                  "remark",
+                  "supportResume",
+                  "sourceDsType",
+                  "targetDsType",
+                  "dirtyDataOutputConfig",
+                  "streamingMediaDTO",
+                  "datasourceList",
+                  "mapperList",
+                  "filterRuleList",
+                  "jobSyncType",
+                  "jobExecMode",
+                  "resourceAllocation",
+                  "jobAttrList",
+                  "enableBillingCheck"
+                ]
               },
               "example": {
-                "current": 1,
-                "size": 10,
-                "archFullPath": "root"
+                "jobCode": 1539950205994752,
+                "archFullPath": "root",
+                "jobName": "wzs_mysql_hive_all",
+                "jobNameEn": "wzs_mysql_hive_all",
+                "remark": "wzs_mysql_hive_all",
+                "supportResume": false,
+                "sourceDsType": {
+                  "label": "MySQL",
+                  "value": "MySQL"
+                },
+                "targetDsType": {
+                  "label": "Hive",
+                  "value": "Hive"
+                },
+                "dirtyDataOutputConfig": {
+                  "isStorage": false,
+                  "storagePath": ""
+                },
+                "streamingMediaDTO": {
+                  "isFrameExtracting": false
+                },
+                "datasourceList": [
+                  {
+                    "datasourceType": {
+                      "value": "source",
+                      "label": "source"
+                    },
+                    "dsTableName": "wzs_test_userinfo1",
+                    "dsName": "autotest_mysql",
+                    "dsType": {
+                      "label": "MySQL",
+                      "value": "MySQL"
+                    },
+                    "metaTabId": "wzs_test_userinfo1",
+                    "databaseName": "starlink_pro",
+                    "dsConfig": {
+                      "codeType": {
+                        "value": "UTF-8"
+                      },
+                      "dsConfigWayEnum": {
+                        "value": "single_database_single_table"
+                      },
+                      "partitionNum": 1,
+                      "fetchSize": 1000,
+                      "dataPluginType": "MySQL"
+                    }
+                  },
+                  {
+                    "datasourceType": {
+                      "value": "target"
+                    },
+                    "dsTableName": "wzs_test_userinfo2",
+                    "dsName": "autotest_hive",
+                    "dsType": {
+                      "label": "Hive",
+                      "value": "Hive"
+                    },
+                    "metaTabId": "MD_PT_e3a6dadcd671457e9ff51ea0267833bb",
+                    "dsConfig": {
+                      "writeMode": "append",
+                      "compressCodec": "none",
+                      "dataPluginType": "Hive",
+                      "partitionNum": 1
+                    }
+                  }
+                ],
+                "mapperList": [
+                  {
+                    "id": 21,
+                    "createTime": "2024-12-16 15:42:44",
+                    "creator": "admin",
+                    "editor": "admin",
+                    "updateTime": "2024-12-17 09:57:08",
+                    "jobId": 11,
+                    "sourceModelFieldId": null,
+                    "sourceTableName": "wzs_test_userinfo1",
+                    "sourceFieldName": "id",
+                    "sourceSQLFieldName": null,
+                    "sourceFieldDefaultValue": null,
+                    "sourceFieldType": "int",
+                    "customerFiledType": null,
+                    "sourceCustomerValue": null,
+                    "sourceFieldSeq": 1,
+                    "customerFiled": false,
+                    "targetModelFieldId": "MD_PTFa451748916034470bd935d0094408574",
+                    "targetTableName": "wzs_test_userinfo2",
+                    "targetFieldName": "id",
+                    "targetFieldType": "int",
+                    "primaryKey": true,
+                    "partitionKey": false,
+                    "partitionKeySeq": 0,
+                    "partitionKeyType": null,
+                    "partitionKeyAttrs": null,
+                    "timePartitionConfig": null,
+                    "fieldProcessorConfig": null,
+                    "fieldProcessorConfigAttrs": null,
+                    "shardingKey": false,
+                    "columnFamily": "",
+                    "name": "id"
+                  },
+                  {
+                    "id": 22,
+                    "createTime": "2024-12-16 15:42:44",
+                    "creator": "admin",
+                    "editor": "admin",
+                    "updateTime": "2024-12-17 09:57:08",
+                    "jobId": 11,
+                    "sourceModelFieldId": null,
+                    "sourceTableName": "wzs_test_userinfo1",
+                    "sourceFieldName": "name",
+                    "sourceSQLFieldName": null,
+                    "sourceFieldDefaultValue": null,
+                    "sourceFieldType": "varchar",
+                    "customerFiledType": null,
+                    "sourceCustomerValue": null,
+                    "sourceFieldSeq": 2,
+                    "customerFiled": false,
+                    "targetModelFieldId": "MD_PTF3582a165fb764c9db06289f1dc6e274d",
+                    "targetTableName": "wzs_test_userinfo2",
+                    "targetFieldName": "name",
+                    "targetFieldType": "varchar",
+                    "primaryKey": false,
+                    "partitionKey": false,
+                    "partitionKeySeq": 0,
+                    "partitionKeyType": null,
+                    "partitionKeyAttrs": null,
+                    "timePartitionConfig": null,
+                    "fieldProcessorConfig": null,
+                    "fieldProcessorConfigAttrs": null,
+                    "shardingKey": false,
+                    "columnFamily": "",
+                    "name": "name"
+                  },
+                  {
+                    "id": 23,
+                    "createTime": "2024-12-16 15:42:44",
+                    "creator": "admin",
+                    "editor": "admin",
+                    "updateTime": "2024-12-17 09:57:08",
+                    "jobId": 11,
+                    "sourceModelFieldId": null,
+                    "sourceTableName": "wzs_test_userinfo1",
+                    "sourceFieldName": "age",
+                    "sourceSQLFieldName": null,
+                    "sourceFieldDefaultValue": null,
+                    "sourceFieldType": "int",
+                    "customerFiledType": null,
+                    "sourceCustomerValue": null,
+                    "sourceFieldSeq": 3,
+                    "customerFiled": false,
+                    "targetModelFieldId": "MD_PTFd8fa7393308b469c8f2f906d562f2629",
+                    "targetTableName": "wzs_test_userinfo2",
+                    "targetFieldName": "age",
+                    "targetFieldType": "int",
+                    "primaryKey": false,
+                    "partitionKey": false,
+                    "partitionKeySeq": 0,
+                    "partitionKeyType": null,
+                    "partitionKeyAttrs": null,
+                    "timePartitionConfig": null,
+                    "fieldProcessorConfig": null,
+                    "fieldProcessorConfigAttrs": null,
+                    "shardingKey": false,
+                    "columnFamily": "",
+                    "name": "age"
+                  }
+                ],
+                "filterRuleList": [],
+                "jobSyncType": {
+                  "label": "^增^量^同^步",
+                  "value": "1"
+                },
+                "jobExecMode": {
+                  "label": "^批^采^集",
+                  "value": "batch"
+                },
+                "resourceAllocation": {
+                  "dsName": "default_yarn",
+                  "prodQueue": "root.default",
+                  "testQueue": "root.default",
+                  "cores": null,
+                  "jobManagerMemory": null,
+                  "taskManagerMemory": null,
+                  "parallelism": null,
+                  "taskManagerNumber": 1,
+                  "dsLabel": "default_yarn"
+                },
+                "jobAttrList": [
+                  {
+                    "jobAttrType": {
+                      "value": 2,
+                      "label": "^作^业^属^性"
+                    },
+                    "jobAttrKey": "yarn.application.queue",
+                    "jobAttrValue": "{\"dsName\":\"default_yarn\",\"dsLabel\":\"default_yarn\",\"testQueue\":\"root.default\",\"prodQueue\":\"root.default\"}"
+                  },
+                  {
+                    "jobAttrType": {
+                      "value": 2,
+                      "label": "^作^业^属^性"
+                    },
+                    "jobAttrKey": "taskmanager.numberOfTaskSlots",
+                    "jobAttrValue": 1
+                  },
+                  {
+                    "jobAttrType": {
+                      "value": 1,
+                      "label": "^作^业^变^量"
+                    }
+                  }
+                ],
+                "enableBillingCheck": 0
               }
             }
           }

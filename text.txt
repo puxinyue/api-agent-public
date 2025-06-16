@@ -1,0 +1,449 @@
+python. py
+ define 接口1（参数1，参数2）
+｛
+結果=週用接口（参数1，参数2）
+assert 結果.code ＝ &code変量
+assert 结果.message = &message变量
+assert 结果.data.D］= &数组变量
+assert 结果.data.*，*= &**变量
+｝
+
+yaml
+｛
+接口1-参数1 is null：
+- 参数1：
+- 参数2：值2
+- code变量：200
+- message变量：成功
+- 数组变量：**
+- **变量：***
+接口1-参数1 is null：
+- 参数1：
+- 参数2：值2
+- code変量：404
+- message变量：失败
+接口1-参数2 is null：
+- 参数1：值1
+- 参数2：
+code变量：200
+
+
+
+
+
+-
+    name: test00_首页访问_部门列表访问
+    request:
+        url: $url/ai-platform-api/labelmgr-web/project/user/auth-platform/dept-list
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+
+-
+    name: test01_首页访问_首页基本信息访问
+    request:
+        url: $url/ai-platform-api/admin/cloud/user/info
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+
+-
+    name: test02_首页访问_热门微调模型访问
+    request:
+        url: $url/ai-platform-api/admin/homepage/popular/models
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+
+-
+    name: test03_数据中心_数据集管理-平台数据集
+    request:
+        url: $url/ai-platform-api/datacentermgr-web/data/manage/page
+        method: POST
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        json:
+            current: 1
+            size: 10
+            datasetName: ''
+            datasetType: ''
+            annotationState: ''
+            datasetSource: ''
+            datasetProperty: 2
+
+-
+    name: test04_数据中心_数据集管理-公共数据集
+    request:
+        url: $url/ai-platform-api/datacentermgr-web/data/manage/page
+        method: POST
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        json:
+            current: 1
+            size: 10
+            datasetName: ''
+            datasetType: ''
+            annotationState: ''
+            datasetSource: ''
+            datasetProperty: 1
+
+-
+    name: test05_数据中心_数据集管理-个人数据集
+    request:
+        url: $url/ai-platform-api/datacentermgr-web/data/manage/page
+        method: POST
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        json:
+            current: 1
+            size: 10
+            datasetName: ''
+            datasetType: ''
+            annotationState: ''
+            datasetSource: ''
+            datasetProperty: 0
+
+-
+    name: test06_数据中心_数据网盘-整体容量
+    request:
+        url: $url/ai-platform-api/filemgr/fileMgr/getBucketInfo
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+
+-
+    name: test07_数据中心_数据网盘-文件目录
+    request:
+        url: $url/ai-platform-api/filemgr/fileMgr/levelFile
+        method: POST
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        json:
+            path: ""
+
+-
+    name: test08_标注中心_标注总览-基本信息
+    request:
+        url: $url/ai-platform-api/labelmgr-web/project/overview/total-view
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        json:
+            path: ""
+
+-
+    name: test09_标注中心_标注总览_总览-基本信息
+    request:
+        url: $url/ai-platform-api/labelmgr-web/project/overview/total-view
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+
+
+-
+    name: test10_标注中心_标注总览_总览-数据统计
+    request:
+        url: $url/ai-platform-api/labelmgr-web/project/overview/label-data-view
+        method: POST
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        json:
+            queryType: PACKAGE_TOTAL
+            date:
+                -
+                -
+            startTime: '2000-11-12 00:00:00'
+            endTime: '2000-11-12 23:59:59'
+
+-
+    name: test11_标注中心_标注总览_标注团队统计-团队信息
+    request:
+        url: $url/ai-platform-api/labelmgr-web/project/overview/team/total-table
+        method: POST
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        json:
+            queryType: PACKAGE_TOTAL
+            date:
+                -
+                -
+            startTime: '2000-11-12 00:00:00'
+            endTime: '2000-11-12 23:59:59'
+
+-
+    name: test12_标注中心_标注总览_标注团队统计-数据统计
+    request:
+        url: $url/ai-platform-api/labelmgr-web/project/overview/team/total-histogram
+        method: POST
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        json:
+            queryType: PACKAGE_TOTAL
+            date:
+                -
+                -
+            startTime: '2000-11-12 00:00:00'
+            endTime: '2000-11-12 23:59:59'
+
+-
+    name: test13_标注中心_标注总览_人员详情-人员统计
+    request:
+        url: $url/ai-platform-api/labelmgr-web/project/overview/team/user-total-table
+        method: POST
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        json:
+            queryType: PACKAGE_TOTAL
+            date:
+                -
+                -
+            startTime: '2000-11-12 00:00:00'
+            endTime: '2000-11-12 23:59:59'
+
+-
+    name: test14_标注中心_标注总览_人员详情-数据统计
+    request:
+        url: $url/ai-platform-api/labelmgr-web/project/overview/team/user-total-histogram
+        method: POST
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        json:
+            queryType: PACKAGE_TOTAL
+            date:
+                -
+                -
+            startTime: '2000-11-12 00:00:00'
+            endTime: '2000-11-12 23:59:59'
+
+-
+    name: test15_标注中心_标注项目
+    request:
+        url: $url/ai-platform-api/labelmgr-web/project/view/page
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        params:
+            current: 1
+            size: 10
+            role: ADMIN
+
+-
+    name: test16_标注中心_我的任务_标注员
+    request:
+        url: $url/ai-platform-api/labelmgr-web/project/view/page
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        params:
+            current: 1
+            size: 10
+            role: LABEL
+
+-
+    name: test17_标注中心_我的任务_审核员
+    request:
+        url: $url/ai-platform-api/labelmgr-web/project/view/page
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        params:
+            current: 1
+            size: 10
+            role: AUDIT
+
+-
+    name: test18_标注中心_我的任务_验收员
+    request:
+        url: $url/ai-platform-api/labelmgr-web/project/view/page
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        params:
+            current: 1
+            size: 10
+            role: CHECK
+
+-
+    name: test19_训练中心_模型开发
+    request:
+        url: $url/ai-platform-api/trainingmgr/trainingdev/query/page
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        params:
+            current: 1
+            size: 10
+
+-
+    name: test20_训练中心_模型调优
+    request:
+        url: $url/ai-platform-api/trainingmgr/training/tuning/query/page
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        params:
+            current: 1
+            size: 10
+
+-
+    name: test21_训练中心_模型评测
+    request:
+        url: $url/ai-platform-api/modelmgr/model/evaluation/query/page
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        params:
+            current: 1
+            size: 10
+
+-
+    name: test22_训练中心_训练任务
+    request:
+        url: $url/ai-platform-api/trainingmgr/training/query/page
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        params:
+            current: 1
+            size: 10
+
+-
+    name: test23_推理服务_创建应用
+    request:
+        url: $url/ai-platform-api/servicemgr/service/app/query/page
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        params:
+            current: 1
+            size: 10
+
+-
+    name: test24_推理服务_在线服务
+    request:
+        url: $url/ai-platform-api/servicemgr/model/service/query/page
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        params:
+            current: 1
+            size: 10
+
+-
+    name: test25_推理服务_服务资源监控-POD使用量
+    request:
+        url: $url/ai-platform-api/servicemgr/service/monitor/view
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+
+-
+    name: test26_推理服务_服务资源监控-服务列表-个人
+    request:
+        url: $url/ai-platform-api/servicemgr/model/service/model/list?type=personal
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+
+-
+    name: test27_推理服务_服务资源监控-服务资源使用情况-个人
+    request:
+        url: $url/ai-platform-api/servicemgr/service/monitor/service/view?type=personal
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+
+-
+    name: test28_镜像中心_镜像仓库
+    request:
+        url: $url/ai-platform-api/imagemgr/harborinfo/harborname/page
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        params:
+            current: 1
+            size: 10
+
+-
+    name: test29_镜像中心_镜像管理
+    request:
+        url: $url/ai-platform-api/imagemgr/imagemetadata/search
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        params:
+            current: 1
+            size: 10
+            imageName:
+            imageType:
+            imageArchitecture:
+
+-
+    name: test30_资源中心_集群管理-资源展示
+    request:
+        url: $url/ai-platform-api/admin/cluster/resource/info
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+
+-
+    name: test31_资源中心_集群管理-集群列表
+    request:
+        url: $url/ai-platform-api/admin/cluster/page
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        params:
+            current: 1
+            size: 10
+
+-
+    name: test32_资源中心_机器资源监控
+    request:
+        url: $url/ai-platform-api/admin/monitor/views
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+
+-
+    name: test33_平台中心_租户管理
+    request:
+        url: $url/ai-platform-api/admin/tenant/page
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        params:
+            current: 1
+            size: 10
+
+-
+    name: test34_平台中心_租户管理
+    request:
+        url: $url/ai-platform-api/admin/dept/page
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        params:
+            current: 1
+            size: 10
+
+-
+    name: test35_平台中心_用户管理
+    request:
+        url: $url/ai-platform-api/admin/cloud/user/page
+        method: GET
+        headers:
+          User-Agent: "PostmanRuntime/7.37.3"
+        params:
+            current: 1
+            size: 10
+
+
+
+
+5. 报告增强
+   ```python
+   @allure.severity(allure.severity_level.CRITICAL)
+   @allure.description("Test user login with valid credentials")
+   ```
+    * 类型错误测试：使用错误的数据类型（如字符串代替数字）

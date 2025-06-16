@@ -9,44 +9,59 @@ from autogen_core.models import UserMessage
 import re
 import os
 import yaml
+from .yaml_utils import convert_testcase_to_yaml
+from agent.yaml_utils import convert_testcase_to_yaml_with_retry
 
 
 # 接口自动化测试脚本生成提示词
 prompt = """
  你是一个专业的接口自动化测试专家，擅长根据 API 接口描述生成测试用例。现在我将提供一份基于 FastAPI 生成的 JSON 接口描述（OpenAPI/Swagger 格式），你的任务是根据这份 JSON 描述生成全面的接口测试用例，特别关注以下场景和要求：
-
- BASE_URL = "http://localhost:8000"
  
 ### 测试场景
-1. **必填参数校验**：特别关注测试所有必填字段的正常情况、缺失必填字段、必填字段为空或无效值的情况。
-   - 对 OpenAPI 中标记为 required 的所有字段进行断言校验
-   - 使用 assert 语句验证必填字段的存在性和有效性
-   - 对必填字段进行类型检查：assert isinstance(response.json()["field_name"], expected_type)
-   - 对必填字段进行值检查：assert response.json()["field_name"] == expected_value
-   - 为每个必填字段生成以下测试用例（headers中只校验Authorization字段，不需要校验其他字段）：
+1. **必填参数校验**：
+   - 必须覆盖接口所有入参的必填参数，包括 requestBody、query、path、header、cookie 等所有来源，不能遗漏任何必填项。
+   - 对 OpenAPI 中标记为 required 的所有字段逐一生成测试用例。
+   - 每个必填参数都要有独立的测试用例，分别覆盖：
      * 正常值测试：使用有效的值
      * 缺失测试：完全移除该字段
      * 空值测试：设置字段为空（如空字符串、null、0等）
      * 类型错误测试：使用错误的数据类型（如字符串代替数字）
      * 格式错误测试：使用不符合格式的值（如无效的邮箱格式）
-   - 确保每个必填字段都有独立的测试用例，不要合并多个字段的测试
-   - 在测试用例名称中明确标识被测试的字段（如 test_create_user_missing_username）
+   - 每个必填字段的测试用例名称需明确标识被测参数（如 test_create_user_missing_username），不要合并多个参数的异常场景。
+   - 使用 assert 语句验证必填字段的存在性和有效性。
+   - 对必填字段进行类型检查：assert isinstance(response.json()["field_name"], expected_type)
+   - 对必填字段进行值检查：assert response.json()["field_name"] == expected_value
+   - headers中只校验Authorization字段，不需要校验其他字段。
 
 2. **非必填参数校验**：特别关注测试非必填字段的各种组合，包括提供非必填字段、部分提供、完全不提供的情况。
 
 3. **边界测试**：针对参数的边界值（如字符串长度、数值范围、枚举值）生成测试用例。
 
-4. **异常测试**：测试无效输入（如错误的数据类型、格式不匹配）以及 JSON 描述中定义的异常状态码（如 400、401、403、404、500）。
+4.  **GET/DELETE 等无 requestBody 的接口参数校验**：
+   - 必须遍历 OpenAPI 描述中 `parameters` 字段下的所有参数（包括 in: query、in: path、in: header），对每个参数都要生成参数校验用例。
+   - 对每个参数（无论必填还是非必填）都要生成如下测试用例：
+     * 正常值测试（如类型、格式、范围都正确）
+     * 缺失测试（仅对 required 参数）
+     * 空值测试（如空字符串、null、空数组等）
+     * 类型错误测试（如用字符串代替数字）
+     * 格式错误测试（如不合法的邮箱、日期等）
+     * 边界值测试（如最小/最大、长度、枚举等）
+   - 每个参数的每种异常场景都要有独立的测试函数，不能合并多个参数的异常。
+   - 测试用例名称需明确标识被测参数和场景（如 test_get_products_missing_category_id）。
+   - GET/DELETE 请求的参数必须通过 `params` 传递，不能放到 body。
+   - 断言需覆盖状态码和响应结构。
 
-5. **正向测试**：测试正常输入下接口的正确响应。
+5. **异常测试**：测试无效输入（如错误的数据类型、格式不匹配）以及 JSON 描述中定义的异常状态码（如 400、401、403、404、500）。
 
-6. **请求头（Header）校验**：只关注 `Authorization` 头（如 Bearer Token、API Key）。生成以下测试用例：
+6. **正向测试**：测试正常输入下接口的正确响应。
+
+7. **请求头（Header）校验**：只关注 `Authorization` 头（如 Bearer Token、API Key）。生成以下测试用例：
    - 使用有效的 `Authorization` 头（如正确的 Bearer Token 或 API Key）。
    - 缺失 `Authorization` 头，预期 JSON 描述中定义的认证失败状态码（如 401）。
    - 提供无效的 `Authorization` 头（如过期 Token、错误格式），预期 JSON 描述中定义的认证失败状态码（如 401 或 403）。
    - 注意：其他 headers 里的字段不需要校验，只关注 Authorization token 的校验。
 
-7. **响应数据结构校验**：
+8. **响应数据结构校验**：
    - **List 接口**：对于返回列表的接口，响应数据结构为 `{"data": [...]}`，断言需检查：
      - `response.json()` 是一个字典，包含 `data` 字段。
      - `response.json()["data"]` 是一个列表（使用 `assert isinstance(response.json()["data"], list)`）。
@@ -58,14 +73,14 @@ prompt = """
      - 避免断言 Schema 中未定义的字段（如 `message`），除非接口描述明确要求。
      - 如果字段为可选，生成测试用例验证字段缺失时的行为，并在注释中说明。
 
-8. **状态码断言**：
-   - 状态码断言（如 `assert response.status_code == <code>`）**必须严格基于 JSON 描述中的 `responses` 字段**（如 `200`, `201`, `400`, `401`）。
+9. **状态码断言**：
+   - 状态码断言（如 `assert response.status_code == <code>`）**必须严格基于 JSON 描述中的 `responses` 字段**（如 200, 201, 400, 401）。
    - 为 JSON 描述中定义的每种状态码生成对应的测试用例（如 200/201 表示成功，400 表示参数错误，401 表示认证失败）。
    - **禁止假设或添加 JSON 描述中未定义的状态码**（如未定义 403 时不得断言 403）。
    - 如果 JSON 描述中缺少某些场景的状态码（如认证失败未明确状态码），在注释中说明无法生成相关测试用例，并建议用户补充描述。
    - 确保状态码断言与测试场景（如正常请求、参数错误、认证失败）一致，并在断言中添加上下文（如 `"Expected status code 200 as per API spec"`）。
 
-9. **断言错误预防**：
+10. **断言错误预防**：
    - 避免断言 JSON Schema 中未定义的字段（如 `message`），确保响应字段校验严格匹配 Schema。
    - 确保状态码断言严格遵循 JSON 描述的 `responses` 字段，避免断言未定义状态码导致错误。
    - 在注释中说明断言依据（状态码和响应 Schema 来源于 JSON 描述）以及任何限制（如缺少状态码定义）。
@@ -78,6 +93,7 @@ prompt = """
 
 ### 输出要求
 1. **测试用例格式**：生成 Python 代码，基于 Pytest 框架，使用 `requests` 库发送 HTTP 请求。每个测试用例需包含：
+   - 非常重要：get接口的测试用例必须使用 params 传递参数和校验，不能遗漏。
    - 测试函数名称，清晰描述测试场景（如 `test_list_users_success`, `test_create_order_invalid_token`）。
    - 请求的 URL、方法、参数（包括请求体、查询参数、请求头）。
    - 包含 `Authorization` 头的测试用例需明确指定 Header（如 `{"Authorization": "Bearer <token>"}`）。
@@ -107,158 +123,8 @@ prompt = """
    - 生成的代码应易于在 Pytest 中运行，包含必要的错误处理和断言。
    - 为 `Authorization` 头测试用例提供占位符（如 `TOKEN = "your_token_here"`），并在注释中说明如何替换为实际 Token。
 
-### 输入示例
-以下是一个 FastAPI 生成的 JSON 接口描述示例，包含一个 `list` 接口和一个非 `list` 接口（订单创建），均需要 `Authorization` 头：
-
-```json
-{
-  "openapi": "3.0.2",
-  "paths": {
-    "/users": {
-      "get": {
-        "summary": "List all users",
-        "operationId": "list_users",
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 100,
-              "default": 10
-            },
-            "description": "Number of users to return"
-          },
-          {
-            "name": "role",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "enum": ["admin", "user"]
-            },
-            "description": "Filter by user role"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "List of users",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": { "type": "integer" },
-                          "username": { "type": "string" },
-                          "email": { "type": "string", "format": "email" },
-                          "role": { "type": "string", "enum": ["admin", "user"] }
-                        },
-                        "required": ["id", "username", "email", "role"]
-                      }
-                    }
-                  },
-                  "required": ["data"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Invalid input" },
-          "401": { "description": "Unauthorized, missing or invalid token" }
-        }
-      }
-    },
-    "/orders": {
-      "post": {
-        "summary": "Create a new order",
-        "operationId": "create_order",
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "product_id": {
-                    "type": "integer",
-                    "minimum": 1,
-                    "description": "Product ID"
-                  },
-                  "quantity": {
-                    "type": "integer",
-                    "minimum": 1,
-                    "description": "Order quantity"
-                  },
-                  "discount_code": {
-                    "type": "string",
-                    "maxLength": 10,
-                    "description": "Discount code (optional)"
-                  }
-                },
-                "required": ["product_id", "quantity"]
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Order created successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "order_id": { "type": "integer" },
-                    "order_no": { "type": "string" },
-                    "total_amount": { "type": "number" }
-                  },
-                  "required": ["order_id", "order_no", "total_amount"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Invalid input" },
-          "401": { "description": "Unauthorized, missing or invalid token" }
-        }
-      }
-    }
-  },
-  "components": {
-    "securitySchemes": {
-      "BearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      }
-    }
-  }
-}
-
-
-
-5. 报告增强
-   ```python
-   @allure.severity(allure.severity_level.CRITICAL)
-   @allure.description("Test user login with valid credentials")
-   ```
-6. readme.md使用说明
-
+5. 注意：
+    - 所有注释都使用中文，不要使用英文。
 """
 
 # 接口需求获取智能体(pdf、数据库等)
@@ -300,124 +166,6 @@ source_termination = Termination(sources=["testcase_output_agent"])
 team = Team([api_acquisition_agent, testcase_generator_agent, testcase_format_agent, testcase_output_agent],
                            termination_condition=source_termination)
 
-# 在生成测试用例的同时，将 Swagger JSON 文件转换为 YAML 格式
-async def convert_testcase_to_yaml(testcase_data, path, method, group_index=None):
-    # 解析测试用例代码
-    test_cases = []
-    code = testcase_data["code"]
-    
-    # 使用正则表达式匹配测试函数及其内容
-    test_functions = re.finditer(r'def\s+(test_[^\s(]+)\s*\([^)]*\):(.*?)(?=def\s+test_|$)', code, re.DOTALL)
-    
-    for test_func in test_functions:
-        test_name = test_func.group(1)
-        func_content = test_func.group(2)
-        
-        # 解析请求信息
-        request_info = {
-            "name": test_name,
-            "request": {
-                "url": f"$url{path}",
-                "method": method.upper(),
-                "headers": {
-                    "User-Agent": "PostmanRuntime/7.37.3"
-                }
-            }
-        }
-        
-        # 解析请求参数
-        params_match = re.search(r'params\s*=\s*({[^}]+})', func_content)
-        if params_match:
-            try:
-                params_str = params_match.group(1).replace("'", '"')
-                params = json.loads(params_str)
-                request_info["request"]["params"] = params
-            except json.JSONDecodeError:
-                pass
-        
-        # 解析请求体
-        json_match = re.search(r'payload\s*=\s*({[^}]+})', func_content)
-        if json_match:
-            try:
-                json_str = json_match.group(1).replace("'", '"')
-                json_data = json.loads(json_str)
-                request_info["request"]["json"] = json_data
-            except json.JSONDecodeError:
-                pass
-        
-        # 解析认证信息
-        if "valid_token" in func_content:
-            request_info["request"]["headers"]["Authorization"] = "Bearer $valid_token"
-        elif "invalid_token" in func_content:
-            request_info["request"]["headers"]["Authorization"] = "Bearer $invalid_token"
-        
-        # 添加测试用例
-        test_cases.append(request_info)
-    
-    # 如果没有找到测试用例，生成默认的正向和反向测试用例
-    if not test_cases:
-        positive_testcase = {
-            "name": f"test_{path.strip('/').replace('/', '_')}_{method}_positive",
-            "request": {
-                "url": f"$url{path}",
-                "method": method.upper(),
-                "headers": {
-                    "User-Agent": "PostmanRuntime/7.37.3",
-                    "Authorization": "Bearer $valid_token"
-                }
-            }
-        }
-        
-        negative_testcase = {
-            "name": f"test_{path.strip('/').replace('/', '_')}_{method}_negative",
-            "request": {
-                "url": f"$url{path}",
-                "method": method.upper(),
-                "headers": {
-                    "User-Agent": "PostmanRuntime/7.37.3",
-                    "Authorization": "Bearer $invalid_token"
-                }
-            }
-        }
-        
-        # 添加请求体和参数
-        if "requestBody" in testcase_data.get("api_doc", {}).get("paths", {}).get(path, {}).get(method, {}):
-            request_body = testcase_data["api_doc"]["paths"][path][method]["requestBody"]
-            if "content" in request_body and "application/json" in request_body["content"]:
-                schema = request_body["content"]["application/json"]["schema"]
-                if "properties" in schema:
-                    example_data = {}
-                    for prop_name, prop_schema in schema["properties"].items():
-                        if prop_schema["type"] == "string":
-                            example_data[prop_name] = ""
-                        elif prop_schema["type"] == "integer":
-                            example_data[prop_name] = 1
-                        elif prop_schema["type"] == "number":
-                            example_data[prop_name] = 1.0
-                        elif prop_schema["type"] == "boolean":
-                            example_data[prop_name] = True
-                        elif prop_schema["type"] == "array":
-                            example_data[prop_name] = []
-                    positive_testcase["request"]["json"] = example_data
-        
-        test_cases = [positive_testcase, negative_testcase]
-    
-    # 将测试用例转换为YAML格式
-    yaml_data = yaml.dump(test_cases, default_flow_style=False, sort_keys=False)
-    
-    # 保存YAML文件
-    swagger_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'swagger')
-    os.makedirs(swagger_dir, exist_ok=True)
-    
-    # 根据是否有分组来生成文件名
-    if group_index is not None:
-        yaml_path = os.path.join(swagger_dir, f'testcase_{path.strip("/").replace("/", "_")}_{method}_group{group_index+1}.yaml')
-    else:
-        yaml_path = os.path.join(swagger_dir, f'testcase_{path.strip("/").replace("/", "_")}_{method}.yaml')
-    
-    with open(yaml_path, 'w', encoding='utf-8') as f:
-        f.write(yaml_data)
-
 # 在 generate_testcases_for_all_endpoints 函数中调用转换函数
 async def generate_testcase_with_retry(prompt, max_retries=5, delay=10):
     for attempt in range(max_retries):
@@ -445,7 +193,7 @@ async def generate_testcases_for_all_endpoints():
     conftest_code = '''\
 import pytest
 
-BASE_URL = "http://your-api-url"  # 替换为实际API地址
+BASE_URL = "http://localhost:8000"  # 替换为实际API地址
 
 @pytest.fixture(scope="session")
 def valid_token():
@@ -487,47 +235,74 @@ def invalid_token():
                         response_field_count += len(schema["properties"])
                         response_schemas[status_code] = schema
 
-            # 如果请求字段数量超过4个或响应字段数量超过10个，分批生成测试用例
-            if request_field_count > 4 or response_field_count > 10:
+            # 如果请求字段数量超过20个或响应字段数量超过30个，分批生成测试用例，且最多分3组
+            if request_field_count > 20 or response_field_count > 30:
+                def split_to_n_groups(items, n):
+                    group_size = max(1, len(items) // n)
+                    groups = []
+                    for i in range(n-1):
+                        groups.append(items[i*group_size:(i+1)*group_size])
+                    groups.append(items[(n-1)*group_size:])
+                    return groups
+
                 # 处理请求字段分组
                 request_groups = []
-                if request_field_count > 4 and "requestBody" in detail and "content" in detail["requestBody"] and "application/json" in detail["requestBody"]["content"]:
+                request_required_groups = []
+                if request_field_count > 20 and "requestBody" in detail and "content" in detail["requestBody"] and "application/json" in detail["requestBody"]["content"]:
                     schema = detail["requestBody"]["content"]["application/json"]["schema"]
                     if "properties" in schema:
                         properties = schema["properties"]
-                        # 按每3个字段分组
-                        request_groups = [list(properties.items())[i:i + 3] for i in range(0, len(properties), 3)]
+                        required = schema.get("required", [])
+                        items = list(properties.items())
+                        groups = split_to_n_groups(items, 3)
+                        for group in groups:
+                            group_keys = [k for k, v in group]
+                            group_required = [k for k in group_keys if k in required]
+                            request_groups.append(group)
+                            request_required_groups.append(group_required)
 
                 # 处理响应字段分组
                 response_groups = {}
+                response_required_groups = {}
                 for status_code, schema in response_schemas.items():
                     if "properties" in schema:
                         properties = schema["properties"]
-                        # 按每3个字段分组
-                        response_groups[status_code] = [list(properties.items())[i:i + 3] for i in range(0, len(properties), 3)]
+                        required = schema.get("required", [])
+                        items = list(properties.items())
+                        groups = split_to_n_groups(items, 3)
+                        group_requireds = []
+                        for group in groups:
+                            group_keys = [k for k, v in group]
+                            group_required = [k for k in group_keys if k in required]
+                            group_requireds.append(group_required)
+                        response_groups[status_code] = groups
+                        response_required_groups[status_code] = group_requireds
 
                 # 生成测试用例
-                for i in range(max(len(request_groups), max(len(groups) for groups in response_groups.values()))):
+                max_group_count = max(len(request_groups) if request_groups else 0, *(len(groups) for groups in response_groups.values()) if response_groups else [0])
+                for i in range(max_group_count):
                     # 创建分组后的schema
                     group_request_schema = None
                     if request_groups and i < len(request_groups):
                         group_request_schema = {
                             "type": "object",
                             "properties": dict(request_groups[i]),
-                            "required": [f[0] for f in request_groups[i] if f[0] in schema.get("required", [])]
+                            "required": request_required_groups[i]
                         }
 
                     # 创建分组后的响应schema
                     group_responses = {}
                     for status_code, groups in response_groups.items():
                         if i < len(groups):
+                            group = groups[i]
+                            group_required = response_required_groups[status_code][i]
                             group_responses[status_code] = {
                                 "content": {
                                     "application/json": {
                                         "schema": {
                                             "type": "object",
-                                            "properties": dict(groups[i]),
-                                            "required": [f[0] for f in groups[i] if f[0] in schema.get("required", [])]
+                                            "properties": dict(group),
+                                            "required": group_required
                                         }
                                     }
                                 }
@@ -580,7 +355,7 @@ def invalid_token():
                             "description": f"Test case for {method.upper()} {path} (Group {i+1})",
                             "code": code
                         }
-                        await convert_testcase_to_yaml(testcase_data, path, method, group_index=i)
+                        await convert_testcase_to_yaml_with_retry(testcase_data, path, method, group_index=i)
                         
                         # 在每组之间添加延迟
                         await asyncio.sleep(5)
@@ -621,7 +396,7 @@ def invalid_token():
                         "description": f"Test case for {method.upper()} {path}",
                         "code": code
                     }
-                    await convert_testcase_to_yaml(testcase_data, path, method)
+                    await convert_testcase_to_yaml_with_retry(testcase_data, path, method)
                 except Exception as e:
                     print(f"Error generating test cases for {path} {method}: {str(e)}")
                     continue

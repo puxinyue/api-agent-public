@@ -1,12 +1,13 @@
 from agent import ChatClient
 model_client = ChatClient(
-    model="qwen2.5-vl-72b-instruct",
-    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
-    api_key="sk-6e619da6e0dd4062bdd70fb69dbf25a2",
+    model="gemini-2.5-flash-preview-04-17",
+    base_url="https://one.ocoolai.com/v1",
+    api_key="",
     timeout=300,
      default_parameters={
         "temperature": 0.6,
     },
+    generationConfig = { "thinkingConfig":{ "thinkingBudget": 0 }, "thinking": False},
     model_info={
         "vision": False,
         "function_calling": True,

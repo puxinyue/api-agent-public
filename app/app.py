@@ -166,62 +166,62 @@ async def get_current_user(authorization: str = Header(...)):
         )
 
 
-# --- 用户认证相关接口 ---
-@app.post("/auth/register", status_code=status.HTTP_201_CREATED, response_model=MessageResponse, responses={
-    201: {"description": "注册成功", "model": MessageResponse},
-    409: {"description": "用户名或邮箱已存在", "model": MessageResponse},
-    422: {"description": "参数校验失败", "model": MessageResponse},
-})
-async def register(user: UserCreate):
-    # 直接存明文密码
-    conn = get_db_connection()
-    cursor = conn.cursor()
+# # --- 用户认证相关接口 ---
+# @app.post("/auth/register", status_code=status.HTTP_201_CREATED, response_model=MessageResponse, responses={
+#     201: {"description": "注册成功", "model": MessageResponse},
+#     409: {"description": "用户名或邮箱已存在", "model": MessageResponse},
+#     422: {"description": "参数校验失败", "model": MessageResponse},
+# })
+# async def register(user: UserCreate):
+#     # 直接存明文密码
+#     conn = get_db_connection()
+#     cursor = conn.cursor()
 
-    try:
-        cursor.execute(
-            """
-            INSERT INTO users (username, password_hash, email, phone)
-            VALUES (%s, %s, %s, %s)
-            """,
-            (user.username, user.password, user.email, user.phone)
-        )
-        conn.commit()
-        return {"message": "User registered successfully"}
-    except pymysql.err.IntegrityError as e:
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
-            detail="Username or email already exists"
-        )
-    finally:
-        cursor.close()
-        conn.close()
+#     try:
+#         cursor.execute(
+#             """
+#             INSERT INTO users (username, password_hash, email, phone)
+#             VALUES (%s, %s, %s, %s)
+#             """,
+#             (user.username, user.password, user.email, user.phone)
+#         )
+#         conn.commit()
+#         return {"message": "User registered successfully"}
+#     except pymysql.err.IntegrityError as e:
+#         raise HTTPException(
+#             status_code=status.HTTP_409_CONFLICT,
+#             detail="Username or email already exists"
+#         )
+#     finally:
+#         cursor.close()
+#         conn.close()
 
 
-@app.post("/auth/login", response_model=TokenResponse, responses={
-    200: {"description": "登录成功", "model": TokenResponse},
-    401: {"description": "用户名或密码错误", "model": MessageResponse},
-    422: {"description": "参数校验失败", "model": MessageResponse},
-})
-async def login(form_data: UserLogin):
-    conn = get_db_connection()
-    cursor = conn.cursor()
+# @app.post("/auth/login", response_model=TokenResponse, responses={
+#     200: {"description": "登录成功", "model": TokenResponse},
+#     401: {"description": "用户名或密码错误", "model": MessageResponse},
+#     422: {"description": "参数校验失败", "model": MessageResponse},
+# })
+# async def login(form_data: UserLogin):
+#     conn = get_db_connection()
+#     cursor = conn.cursor()
 
-    cursor.execute(
-        "SELECT * FROM users WHERE username = %s",
-        (form_data.username,))
-    user = cursor.fetchone()
-    cursor.close()
-    conn.close()
-    print("user-======>", user)
-    # 明文校验
-    if not user or form_data.password != user['password_hash']:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password"
-        )
+#     cursor.execute(
+#         "SELECT * FROM users WHERE username = %s",
+#         (form_data.username,))
+#     user = cursor.fetchone()
+#     cursor.close()
+#     conn.close()
+#     print("user-======>", user)
+#     # 明文校验
+#     if not user or form_data.password != user['password_hash']:
+#         raise HTTPException(
+#             status_code=status.HTTP_401_UNAUTHORIZED,
+#             detail="Incorrect username or password"
+#         )
 
-    access_token = create_access_token(data={"sub": user['username']})
-    return {"access_token": access_token, "token_type": "bearer"}
+#     access_token = create_access_token(data={"sub": user['username']})
+#     return {"access_token": access_token, "token_type": "bearer"}
 
 
 # --- 商品相关接口 ---
@@ -230,9 +230,9 @@ async def login(form_data: UserLogin):
     422: {"description": "参数校验失败", "model": MessageResponse},
 })
 async def get_products(
-        category_id: Optional[int] = None,
-        page: int = 1,
-        size: int = 10
+        page: int,  # 必填
+        size: int,  # 必填
+        category_id: Optional[int] = None
 ):
     conn = get_db_connection()
     cursor = conn.cursor()

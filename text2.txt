@@ -1,0 +1,167 @@
+import os
+import re
+import json
+
+def convert_testcase_to_yaml(testcase_data, path, method, group_index=None):
+    # 解析测试用例代码
+    test_cases = []
+    code = testcase_data["code"]
+    
+    # 使用正则表达式匹配测试函数及其内容
+    test_functions = re.finditer(r'def\s+(test_[^\s(]+)\s*\([^)]*\):(.*?)(?=def\s+test_|$)', code, re.DOTALL)
+    
+    for test_func in test_functions:
+        test_name = test_func.group(1)
+        func_content = test_func.group(2)
+        # 解析请求信息
+        request_info = {
+            "name": test_name,
+            "request": {
+                "url": f"$url{path}",
+                "method": method.upper(),
+                "headers": {
+                    "User-Agent": "PostmanRuntime/7.37.3"
+                }
+            }
+        }
+        # 只根据测试用例内容决定 params/json
+        params_match = re.search(r'params\s*=\s*({[\s\S]*?})', func_content)
+        if params_match:
+            try:
+                params_str = params_match.group(1).replace("'", '"')
+                params = json.loads(params_str)
+                request_info["request"]["params"] = params
+            except Exception:
+                pass
+        # 修复：提取所有 data=，并找到距离 post 最近的 data
+        data_blocks = list(re.finditer(r'data\s*=\s*({[\s\S]*?})', func_content))
+        post_call = re.search(r'requests\.post\([^\)]*json\s*=\s*data', func_content)
+        chosen_data = None
+        if post_call and data_blocks:
+            data_pos = [m.start() for m in data_blocks]
+            post_pos = post_call.start()
+            for m in reversed(data_blocks):
+                if m.start() < post_pos:
+                    chosen_data = m.group(1)
+                    break
+            if not chosen_data:
+                # fallback: 只有一个 data= 就用它
+                chosen_data = data_blocks[-1].group(1)
+        # 兼容 payload=、json_data= 作为 json
+        if not chosen_data:
+            json_match = re.search(r'(payload|json_data)\s*=\s*({[\s\S]*?})', func_content)
+            if json_match:
+                chosen_data = json_match.group(2)
+        if chosen_data:
+            try:
+                json_str = chosen_data.replace("'", '"')
+                json_data = json.loads(json_str)
+                request_info["request"]["json"] = json_data
+            except Exception:
+                pass
+        # headers
+        auth_header = None
+        if "valid_token" in func_content:
+            auth_header = "Bearer $valid_token"
+        elif "invalid_token" in func_content:
+            auth_header = "Bearer $invalid_token"
+        if auth_header:
+            request_info["request"]["headers"]["Authorization"] = auth_header
+        test_cases.append(request_info)
+    # 如果没有找到测试用例，生成默认的正向和反向测试用例
+    if not test_cases:
+        positive_testcase = {
+            "name": f"test_{path.strip('/').replace('/', '_')}_{method}_positive",
+            "request": {
+                "url": f"$url{path}",
+                "method": method.upper(),
+                "headers": {
+                    "User-Agent": "PostmanRuntime/7.37.3",
+                    "Authorization": "Bearer $valid_token"
+                }
+            }
+        }
+        negative_testcase = {
+            "name": f"test_{path.strip('/').replace('/', '_')}_{method}_negative",
+            "request": {
+                "url": f"$url{path}",
+                "method": method.upper(),
+                "headers": {
+                    "User-Agent": "PostmanRuntime/7.37.3",
+                    "Authorization": "Bearer $invalid_token"
+                }
+            }
+        }
+        # 只根据测试用例内容决定 params/json
+        if "requestBody" in testcase_data.get("api_doc", {}).get("paths", {}).get(path, {}).get(method, {}):
+            request_body = testcase_data["api_doc"]["paths"][path][method]["requestBody"]
+            if "content" in request_body and "application/json" in request_body["content"]:
+                schema = request_body["content"]["application/json"]["schema"]
+                if "properties" in schema:
+                    example_data = {}
+                    for prop_name, prop_schema in schema["properties"].items():
+                        if prop_schema["type"] == "string":
+                            example_data[prop_name] = ""
+                        elif prop_schema["type"] == "integer":
+                            example_data[prop_name] = 1
+                        elif prop_schema["type"] == "number":
+                            example_data[prop_name] = 1.0
+                        elif prop_schema["type"] == "boolean":
+                            example_data[prop_name] = True
+                        elif prop_schema["type"] == "array":
+                            example_data[prop_name] = []
+                    positive_testcase["request"]["json"] = example_data
+        test_cases = [positive_testcase, negative_testcase]
+    # 生成 YAML，严格按照指定格式
+    def yaml_case_block(case):
+        lines = []
+        lines.append("-\n    name: {}".format(case["name"]))
+        lines.append("    request:")
+        lines.append("        url: {}".format(case["request"]["url"]))
+        lines.append("        method: {}".format(case["request"]["method"]))
+        # headers
+        if "headers" in case["request"] and case["request"]["headers"]:
+            lines.append("        headers:")
+            for k, v in case["request"]["headers"].items():
+                lines.append(f"          {k}: \"{v}\"")
+        # params
+        if "params" in case["request"] and case["request"]["params"]:
+            lines.append("        params:")
+            for k, v in case["request"]["params"].items():
+                if v is None:
+                    lines.append(f"          {k}:")
+                else:
+                    if isinstance(v, (int, float)):
+                        value_str = str(v)
+                    elif v == "":
+                        value_str = "''"
+                    else:
+                        value_str = f"'{v}'"
+                    lines.append(f"          {k}: {value_str}")
+        # json
+        if "json" in case["request"] and case["request"]["json"]:
+            lines.append("        json:")
+            for k, v in case["request"]["json"].items():
+                if isinstance(v, (int, float)):
+                    lines.append(f"          {k}: {v}")
+                elif isinstance(v, str):
+                    lines.append(f"          {k}: '{v}'")
+                elif isinstance(v, list):
+                    lines.append(f"          {k}:")
+                    for item in v:
+                        lines.append(f"            - {item}")
+                elif v is None:
+                    lines.append(f"          {k}:")
+                else:
+                    lines.append(f"          {k}: {v}")
+        return '\n'.join(lines)
+    yaml_data = '\n\n'.join([yaml_case_block(case) for case in test_cases])
+    # 保存YAML文件
+    swagger_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'swagger')
+    os.makedirs(swagger_dir, exist_ok=True)
+    if group_index is not None:
+        yaml_path = os.path.join(swagger_dir, f'testcase_{path.strip("/").replace("/", "_")}_{method}_group{group_index+1}.yaml')
+    else:
+        yaml_path = os.path.join(swagger_dir, f'testcase_{path.strip("/").replace("/", "_")}_{method}.yaml')
+    with open(yaml_path, 'w', encoding='utf-8') as f:
+        f.write(yaml_data) 
